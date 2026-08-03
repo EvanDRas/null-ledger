@@ -1,0 +1,37 @@
+
+BUY LIST -- 2026-06 signals, $100,000 account, prices as of 2026-07-31
+==============================================================
+Ticker Sector                   Weight   Dollars  Shares  Note
+--------------------------------------------------------------
+CF     Materials                 5.8%     5,788      54  
+APA    Energy                    5.7%     5,723     171  
+CTVA   Materials                 5.3%     5,321      65  
+STLD   Materials                 4.9%     4,887      19  
+OXY    Energy                    4.8%     4,752      92  
+LYB    Materials                 4.7%     4,738      84  
+PWR    Industrials               4.7%     4,733       6  
+JBL    Information Technology    4.7%     4,724      12  
+VLO    Energy                    4.7%     4,715      18  
+MPC    Energy                    4.7%     4,687      18  
+CMI    Industrials               4.5%     4,547       6  
+DOW    Materials                 4.5%     4,467     152  
+SLB    Energy                    4.3%     4,346      91  
+PSX    Energy                    4.3%     4,313      25  
+FDX    Industrials               4.1%     4,089      12  
+HWM    Industrials               3.2%     3,221      11  
+LUV    Industrials               3.1%     3,118      59  
+ROK    Industrials               3.1%     3,081       6  
+FITB   Financials                2.7%     2,689      47  
+PPG    Materials                 2.6%     2,623      21  
+AIZ    Financials                2.2%     2,222       8  
+USB    Financials                2.1%     2,101      34  
+RF     Financials                2.0%     1,961      65  
+KLAC   Information Technology    1.9%     1,937       7  
+GNRC   Industrials               1.9%     1,909       6  
+GS     Financials                1.4%     1,382       1  
+HON    Industrials               1.1%     1,134       4  
+DXCM   Health Care               0.5%       541       7  
+DECK   Consumer Discretionary    0.3%       252       2  SKIP (tiny)
+TFC    Financials                0.0%         0       0  SKIP (tiny)
+--------------------------------------------------------------
+28 real positions, $99,749 deployed (2 tiny positions to skip)

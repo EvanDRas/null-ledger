@@ -1,0 +1,117 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Systematic US Equity Strategy</title>
+<style>
+ :root{--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;--grid:#e1e0d9;
+       --surface:#fcfcfb;--plane:#f9f9f7;--accent:#2a78d6;
+       --border:rgba(11,11,11,.10)}
+ *{box-sizing:border-box}
+ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;margin:0;
+      background:var(--plane);color:var(--ink);line-height:1.5}
+ .wrap{max-width:880px;margin:0 auto;padding:0 28px 48px}
+ header{border-bottom:1px solid var(--border);padding:30px 0 20px;margin-bottom:26px}
+ .brand{font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+        color:var(--muted);font-weight:600}
+ h1{margin:6px 0 4px;font-size:28px;letter-spacing:-.01em}
+ .sub{color:var(--ink2);margin:0;font-size:15px}
+ .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}
+ @media(max-width:640px){.grid{grid-template-columns:1fr}}
+ a.card{display:block;background:var(--surface);border:1px solid var(--border);
+        border-radius:10px;padding:18px 20px;text-decoration:none;color:var(--ink)}
+ a.card:hover{border-color:var(--accent)}
+ a.card b{font-size:16.5px;color:var(--accent)}
+ a.card span{display:block;color:var(--ink2);font-size:13.5px;margin-top:5px}
+ h2{font-size:18px;margin:30px 0 8px}
+ .box{background:var(--surface);border:1px solid var(--border);border-radius:10px;
+      padding:16px 20px;margin:12px 0;font-size:14.5px}
+ .box.warn{border-color:#ec835a;background:#fffaf7}
+ code{background:#f1f0ec;padding:2px 7px;border-radius:5px;font-size:13px}
+ li{margin:7px 0}
+ footer{color:var(--muted);font-size:12.5px;margin-top:36px;line-height:1.6}
+</style></head><body><div class="wrap">
+<header>
+ <div class="brand"><a href="index.html" style="color:inherit;text-decoration:none">&#9666; The Null Ledger</a> &middot; Systematic Cross-Sectional Equity Strategy</div>
+ <h1>Overview</h1>
+ <p class="sub">ML momentum ranking of S&amp;P 500 constituents &middot; fully automated
+ monthly rebalancing &middot; live paper record begins July 2026 (first ledger row Aug 1)</p>
+</header>
+
+<div class="grid">
+ <a class="card" href="research_overview.html"><b>Research Overview</b>
+   <span>The full story: methodology, audited backtest, validation discipline, limitations. Start here to understand the project.</span></a>
+ <a class="card" href="paper/dashboard.html"><b>Live Performance</b>
+   <span>Strategy vs the S&amp;P 500, month by month, from locked, append-only snapshots. Updates on the 1st.</span></a>
+ <a class="card" href="paper/account.html"><b>Paper Account</b>
+   <span>Positions, P&amp;L, and the complete order blotter. Refreshes every market close.</span></a>
+ <a class="card" href="paper/latest_buy_list.txt"><b>Current Buy List</b>
+   <span>Holdings with weights, dollars, and share counts.</span></a>
+ <a class="card" href="paper/ledger.csv"><b>Official Ledger</b>
+   <span>One row per completed month — the record that counts. First row: Aug 1, 2026.</span></a>
+ <a class="card" href="presentations/Strategy_Research_Deck.pdf"><b>Presentation Deck</b>
+   <span>10-slide research deck (PowerPoint + PDF) — the interview version of this project.</span></a>
+ <a class="card" href="HOW_IT_ALL_WORKS.md"><b>Complete Explainer</b>
+   <span>Every component explained so you can explain it — with interview Q&amp;A and glossary.</span></a>
+ </div>
+
+<h2>How the strategy works</h2>
+<div class="box">
+ <li><b>1 &middot; Rank.</b> At each month-end, every S&amp;P 500 stock is scored on 13
+ price/volume features (momentum, trend quality, volatility, range position) by a
+ gradient-boosted model trained walk-forward on the prior five years, blended 50/50
+ with plain 6-month momentum. The universe is point-in-time — the model can only
+ pick from stocks that were index members on the decision date, including companies
+ that later went bust (price coverage: 89% of member-months after the two-vendor data
+ rebuild; the residual gap is documented on the Research page).</li>
+ <li><b>2 &middot; Select.</b> The top ~30 names are held — enough to diversify away
+ single-stock luck (even the #1-ranked pick beats the index only ~51% of
+ months; on complete data the portfolio itself beats it in just ~52%), few enough to differ meaningfully from the index.</li>
+ <li><b>3 &middot; Weight.</b> Higher-scoring names get more money (score-weighted), capped at 10%
+ per position and 30% per sector so no single name or theme can own the book.</li>
+ <li><b>4 &middot; Repeat.</b> One month later, everything is re-ranked. Turnover
+ limits and a 3-month minimum hold keep changes to ~7-8 stocks a month (~25%
+ turnover), and every trade is charged 15 bps/side in costs. No human decisions
+ anywhere — the same rules, every month, regardless of headlines or feelings.</li>
+</div>
+
+<h2>What runs automatically</h2>
+<div class="box">
+ <li><b>1st of each month, 3:15 PM CT</b> — full cycle: price refresh, model
+ retrain, rebalance orders, snapshot lock, prior month scored to the ledger.</li>
+ <li><b>Weekdays, 3:20 PM CT</b> — account page re-marked at the day's close.</li>
+ <li>If the PC is off at the scheduled time, the run fires at next power-on.
+ Nothing requires manual action.</li>
+</div>
+
+<h2>Manual commands</h2>
+<div class="box">
+ From a Command Prompt in this folder:<br><br>
+ <li><code>python paper_broker.py</code> — refresh the account with live prices</li>
+ <li><code>python buy_list.py</code> — print the current buy list (<code>python buy_list.py 25000</code> for other account sizes)</li>
+ <li><code>run_monthly.bat</code> — force a full monthly cycle (idempotent; safe)</li>
+</div>
+
+<h2>Health</h2>
+<div class="box warn">
+ If <b>paper\ATTENTION_NEEDED.txt</b> exists, a scheduled step failed — read the
+ newest error in <code>paper\run_log.txt</code>; the usual fix is
+ <code>python -m pip install -U yfinance</code>. No file = healthy.
+</div>
+
+<h2>Operating rules</h2>
+<div class="box">
+ <li>No parameter changes for 12 months — losing months and multi-month losing
+ streaks are expected behavior, not signals to intervene.</li>
+ <li>Judgment at 12 ledger rows; decisions at 24.</li>
+ <li>Snapshots and the ledger are never edited — the append-only record plus
+ OneDrive version history is what makes it evidence.</li>
+</div>
+
+<footer>Data 2003-2026; performance over 234 tracked out-of-sample months
+(2007-2026), point-in-time universe, net of costs: 11.0% annualized vs
+S&amp;P 500 total return (SPY) 10.8% &middot; CAPM alpha &minus;0.4%/yr (t=&minus;0.15)
+&mdash; statistically indistinguishable from the index. The +3.1%/yr alpha
+reported on earlier, less complete data was traced to residual survivorship
+bias and eliminated when delisted-security coverage reached 89%. The live
+paper record continues and now tests this null result. Paper trading; no real
+capital at risk.</footer>
+</div></body></html>

@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How it all works — The Null Ledger</title>
+<meta name="description" content="Plain-language explanation of both models, the pre-registered testing process, and how the live paper-trading record proves itself.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231a1a19'/%3E%3Ctext x='32' y='46' font-size='40' text-anchor='middle' fill='%233987e5' font-family='system-ui'%3E%E2%88%85%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    color-scheme: light;
+    --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink-2:#52514e;
+    --muted:#898781; --grid:#e1e0d9; --border:rgba(11,11,11,0.10); --s1:#2a78d6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7;
+      --muted:#898781; --grid:#2c2c2a; --border:rgba(255,255,255,0.10); --s1:#3987e5;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7;
+    --muted:#898781; --grid:#2c2c2a; --border:rgba(255,255,255,0.10); --s1:#3987e5;
+  }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--page); color:var(--ink);
+         font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif; padding:0 16px 64px; }
+  main { max-width:820px; margin:0 auto; }
+  header.site { padding:40px 0 6px; }
+  .crumb { font-size:0.85rem; color:var(--muted); margin-bottom:10px; }
+  .crumb a { color:var(--s1); text-decoration:none; }
+  h1 { font-size:1.7rem; letter-spacing:-0.01em; }
+  h2 { font-size:1.25rem; margin:40px 0 4px; }
+  h3 { font-size:1.0rem; margin:20px 0 4px; }
+  p, li { color:var(--ink-2); max-width:72ch; margin-top:10px; }
+  p b, li b { color:var(--ink); }
+  ul, ol { padding-left:22px; }
+  .card { background:var(--surface); border:1px solid var(--border);
+          border-radius:12px; padding:18px 20px; margin-top:14px; }
+  dl { margin-top:10px; }
+  dt { color:var(--ink); font-weight:600; margin-top:12px; }
+  dd { color:var(--ink-2); margin-left:0; max-width:70ch; }
+  footer { margin-top:56px; padding-top:20px; border-top:1px solid var(--grid);
+           color:var(--muted); font-size:0.84rem; }
+  a { color:var(--s1); }
+</style>
+</head>
+<body>
+<main>
+<header class="site">
+  <div class="crumb"><a href="index.html">◂ The Null Ledger</a></div>
+  <h1>How it all works</h1>
+  <p>Everything on this site, explained in plain language: what the two models
+  actually do, how they were tested, and why the live record can be trusted.</p>
+</header>
+
+<h2>Model 1 — the S&amp;P 500 ranker, step by step</h2>
+<div class="card">
+  <ol>
+    <li><b>Rank.</b> At each month-end, every S&amp;P 500 stock is scored on 13
+    price/volume features (momentum, trend quality, volatility, range position)
+    by a gradient-boosted model, blended 50/50 with plain 6-month momentum.
+    The model is trained <b>walk-forward</b>: to make the January 2020 pick it
+    trains only on data available before January 2020 — it can never peek at
+    the future, and it can only pick from stocks that were actually in the
+    index on the decision date, including companies that later went bankrupt.</li>
+    <li><b>Select &amp; weight.</b> The top ~30 names are held, higher scores get
+    more money, capped at 10% per stock and 30% per sector.</li>
+    <li><b>Repeat.</b> One month later, re-rank everything. Turnover limits keep
+    changes to ~7–8 stocks a month, and every trade is charged 15 basis points
+    per side in simulated costs. No human decisions anywhere.</li>
+  </ol>
+  <p>Full detail, charts, and the audited backtest:
+  <a href="research_overview.html">Research overview</a> ·
+  <a href="SCSES.html">system hub</a>.</p>
+</div>
+
+<h2>Model 2 — SMALL/clone: the same machine, moved down-market</h2>
+<div class="card">
+  <p>The identical production code — imported, not copied, so re-tuning was
+  structurally impossible — was pointed at the <b>small-cap band</b>: stocks
+  ranked 1001–2000 by dollar volume, rebuilt point-in-time each month from a
+  13,821-ticker archive that includes every delisted name. Two honesty rules
+  matter most:</p>
+  <ul>
+    <li><b>Delisting-honest returns.</b> When a held stock dies (bankruptcy,
+    buyout, delisting), its final fate is in the return — and its exit is
+    charged trading costs. Most retail backtests silently skip both, which is
+    where fake small-cap edges usually come from.</li>
+    <li><b>Realistic small-cap costs.</b> 75 basis points per side in the small
+    band (40 in mid), plus a registered "haircut" stress that assumes costs
+    are even worse. Small stocks are expensive to trade; pretending otherwise
+    is the other place fake edges come from.</li>
+  </ul>
+</div>
+
+<h2>How the testing worked (and why "null" is the headline)</h2>
+<div class="card">
+  <p><b>1 · Everything was written down first.</b> Before any test ran, a
+  frozen pre-registration fixed the 18 candidate strategies, every threshold,
+  and every consequence — then the document's cryptographic hash was recorded
+  so it provably never changed. No moving the goalposts after seeing results.</p>
+  <p><b>2 · Each strategy had to beat 2,000 imposters.</b> Instead of asking
+  "did it make money?" (almost anything does in a rising market), each
+  strategy was compared against 2,000 <b>placebo</b> versions of itself:
+  portfolios built by the same engine, paying the same costs, but trading on
+  deliberately scrambled information. A real edge has to beat nearly all of
+  its own imposters. This is the strictest practical test for "is there
+  actual information here, or just luck and market exposure?"</p>
+  <p><b>3 · Two exams, and the final one could be taken once, ever.</b>
+  Strategies were built and gated on 2009–2018 data. The 2019–2026 data was
+  sealed — touched exactly one time, for the single survivor, with the pass
+  bar and the null distribution locked and hash-logged <b>before</b> the
+  result was revealed. No retries, no tweaking, published either way.</p>
+  <p><b>4 · Independent audits.</b> Three separate audit sessions, with no
+  stake in the outcome, reproduced every binding number bit-for-bit from the
+  frozen artifacts — and found real bugs, which went through a signed,
+  dated amendment protocol before any fix. The full trail (42 amendments,
+  16 sign-offs) is preserved.</p>
+  <p><b>The result:</b> six strategies showed statistically real predictive
+  information — and trading costs consumed every basis point of it. The one
+  build-sample survivor failed its one-shot confirm test on every prong.
+  <b>No edge survived.</b> That's the published answer, and the reason this
+  site promises nothing.</p>
+</div>
+
+<h2>How the live paper trading proves itself</h2>
+<div class="card">
+  <ul>
+    <li><b>Automated.</b> On the 1st of each month a scheduled job updates
+    prices, retrains, rebalances, and scores the previous month. No manual
+    input, so there's nothing to fudge.</li>
+    <li><b>Picks are locked before returns exist.</b> Each month's portfolio is
+    written to a timestamped snapshot file the moment it's chosen. When the
+    month ends, the snapshot is scored against what actually happened. The
+    snapshot's existence <i>before</i> the returns is what makes the record
+    evidence rather than a story.</li>
+    <li><b>Append-only.</b> The ledger only ever gains rows. A missed month
+    shows as a gap — never a backfilled guess. Costs are charged on every
+    simulated trade.</li>
+    <li><b>Paper.</b> No real money is involved anywhere. The point is the
+    answer, not the P&amp;L.</li>
+  </ul>
+  <p>Watch it live: <a href="paper/dashboard.html">dashboard</a> ·
+  <a href="paper/account.html">paper account</a> ·
+  <a href="paper/ledger.csv">raw ledger (CSV)</a>.</p>
+</div>
+
+<h2>How this site updates</h2>
+<div class="card">
+  <p>After each monthly run, a build script re-reads the ledgers and published
+  artifacts, regenerates the front page's data, and copies the latest
+  dashboard and account pages here. The site never computes anything itself —
+  it only displays the records the systems produce. If a number here ever
+  disagreed with the underlying ledger files, the ledger files win.</p>
+</div>
+
+<h2>Small glossary</h2>
+<div class="card"><dl>
+  <dt>Alpha</dt><dd>Return above what the benchmark delivered — the part a
+  strategy can take credit for. Quoted per year.</dd>
+  <dt>Placebo test / empirical p</dt><dd>Beat 2,000 information-scrambled
+  imposters of yourself. The p-value is your rank among them: p = 0.0135 means
+  only ~1.3% of imposters did better. Lower is stronger.</dd>
+  <dt>Walk-forward</dt><dd>The model is always trained only on data from
+  before the decision it's making — the way real life works.</dd>
+  <dt>Turnover</dt><dd>How much of the portfolio changes each month. Every
+  unit of it costs money, which is the villain of this entire project.</dd>
+  <dt>Paper trading</dt><dd>Running the strategy with simulated money against
+  real market prices, under real rules. All results here are paper.</dd>
+  <dt>Null result</dt><dd>The finding that there is no effect — here, no
+  edge after costs. Publishing nulls honestly is rare and is the entire point
+  of this site.</dd>
+</dl></div>
+
+<footer>
+  <p>Educational research project by a student. Paper trading only — nothing
+  here is investment advice. <a href="index.html">Back to The Null Ledger</a>.</p>
+</footer>
+</main>
+</body>
+</html>

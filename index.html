@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Null Ledger — a public forward test of two null-result trading models</title>
+<meta name="description" content="Two systematic equity models, pre-registered and audited to a null result. This site tracks them forward, on paper, in public — to keep testing that conclusion.">
+<meta property="og:title" content="The Null Ledger">
+<meta property="og:description" content="18 strategies pre-registered. 3 independent audits. 0 edges survived. A live, append-only paper record keeps testing that answer every month.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231a1a19'/%3E%3Ctext x='32' y='46' font-size='40' text-anchor='middle' fill='%233987e5' font-family='system-ui'%3E%E2%88%85%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    color-scheme: light;
+    --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink-2:#52514e;
+    --muted:#898781; --grid:#e1e0d9; --axis:#c3c2b7;
+    --border:rgba(11,11,11,0.10);
+    --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a;
+    --good-text:#006300; --bad-text:#a02c2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7;
+      --muted:#898781; --grid:#2c2c2a; --axis:#383835;
+      --border:rgba(255,255,255,0.10);
+      --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+      --good-text:#0ca30c; --bad-text:#e66767;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7;
+    --muted:#898781; --grid:#2c2c2a; --axis:#383835;
+    --border:rgba(255,255,255,0.10);
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+    --good-text:#0ca30c; --bad-text:#e66767;
+  }
+  * { box-sizing:border-box; margin:0; }
+  body {
+    background:var(--page); color:var(--ink);
+    font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
+    padding:0 16px 64px;
+  }
+  main { max-width:880px; margin:0 auto; }
+  header.site { padding:48px 0 8px; }
+  h1 { font-size:1.9rem; line-height:1.2; letter-spacing:-0.01em; }
+  .sub { color:var(--ink-2); margin-top:8px; max-width:64ch; }
+  .banner {
+    margin:24px 0; padding:14px 18px; border:1px solid var(--border);
+    border-left:4px solid var(--s1); border-radius:8px; background:var(--surface);
+    color:var(--ink-2); font-size:0.95rem;
+  }
+  .banner b { color:var(--ink); }
+  section { margin-top:44px; }
+  h2 { font-size:1.35rem; margin-bottom:6px; }
+  h3 { font-size:1.02rem; margin:18px 0 6px; }
+  p  { color:var(--ink-2); max-width:70ch; margin-top:10px; }
+  p b, li b { color:var(--ink); }
+  .card {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:12px; padding:20px; margin-top:16px;
+  }
+  .verdict { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+  .tile {
+    flex:1 1 150px; background:var(--surface); border:1px solid var(--border);
+    border-radius:10px; padding:12px 14px;
+  }
+  .tile .k { font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.04em; }
+  .tile .v { font-size:1.45rem; margin-top:2px; }
+  .tile .d { font-size:0.8rem; color:var(--muted); margin-top:2px; }
+  .neg { color:var(--bad-text); } .pos { color:var(--good-text); }
+  .legend { display:flex; gap:18px; flex-wrap:wrap; margin:14px 2px 4px; font-size:0.86rem; color:var(--ink-2); }
+  .legend span { display:inline-flex; align-items:center; gap:7px; }
+  .chip { width:14px; height:4px; border-radius:2px; display:inline-block; }
+  .chartwrap { position:relative; margin-top:4px; }
+  svg.chart { width:100%; height:auto; display:block; }
+  .tip {
+    position:absolute; pointer-events:none; display:none; z-index:5;
+    background:var(--surface); border:1px solid var(--border); border-radius:8px;
+    padding:8px 10px; font-size:0.82rem; box-shadow:0 4px 14px rgba(0,0,0,0.18);
+    white-space:nowrap;
+  }
+  .tip .m { color:var(--muted); margin-bottom:3px; }
+  .tip div.row { display:flex; align-items:center; gap:6px; }
+  .tip .val { font-variant-numeric:tabular-nums; margin-left:auto; padding-left:12px; }
+  details { margin-top:14px; }
+  summary { cursor:pointer; color:var(--ink-2); font-size:0.9rem; }
+  table { border-collapse:collapse; width:100%; margin-top:10px; font-size:0.85rem; }
+  th, td { text-align:right; padding:5px 8px; border-bottom:1px solid var(--grid);
+           font-variant-numeric:tabular-nums; color:var(--ink-2); }
+  th { color:var(--muted); font-weight:600; }
+  th:first-child, td:first-child { text-align:left; }
+  .statsrow { display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+  .statsrow .tile { flex:1 1 110px; text-align:center; }
+  footer { margin-top:56px; padding-top:20px; border-top:1px solid var(--grid);
+           color:var(--muted); font-size:0.84rem; }
+  footer p { color:var(--muted); }
+  a { color:var(--s1); }
+  .themebtn {
+    position:absolute; top:18px; right:0; background:var(--surface); color:var(--ink-2);
+    border:1px solid var(--border); border-radius:8px; padding:5px 11px; cursor:pointer; font-size:0.82rem;
+  }
+  .fineprint { font-size:0.8rem; color:var(--muted); margin-top:8px; }
+  .nav { display:flex; gap:8px; flex-wrap:wrap; margin-top:18px; }
+  .nav a {
+    background:var(--surface); border:1px solid var(--border); border-radius:8px;
+    padding:7px 13px; font-size:0.88rem; text-decoration:none; color:var(--ink-2);
+  }
+  .nav a:hover { border-color:var(--s1); color:var(--s1); }
+  .tscroll { overflow-x:auto; }
+  .cells td:first-child, .cells th:first-child { white-space:nowrap; }
+  .cells td:nth-child(2), .cells th:nth-child(2),
+  .cells td:last-child, .cells th:last-child { text-align:left; }
+  .status { font-size:0.78rem; white-space:nowrap; }
+  .st-survivor { color:var(--ink); font-weight:600; }
+  .st-dead { color:var(--ink-2); }
+  .st-nopass { color:var(--muted); }
+  .st-dq { color:var(--muted); font-style:italic; }
+  .hashes { font:0.72rem/1.7 ui-monospace,Consolas,monospace; color:var(--muted);
+            overflow-x:auto; white-space:nowrap; margin-top:8px; }
+  .hashes b { color:var(--ink-2); font-weight:600; }
+</style>
+</head>
+<body>
+<main>
+<header class="site" style="position:relative">
+  <button class="themebtn" id="themebtn" aria-label="toggle theme">◐ theme</button>
+  <h1>The Null Ledger</h1>
+  <p class="sub">Two systematic stock-picking models, built and then tested to
+  destruction with a pre-registered, independently audited process. The
+  published answer for both: <b>no real edge after costs</b>. This site keeps
+  testing that answer — forward, on paper, in public.</p>
+</header>
+
+<nav class="nav">
+  <a href="how.html">How it all works</a>
+  <a href="SCSES.html">S&amp;P system hub</a>
+  <a href="research_overview.html">Research deep-dive</a>
+  <a href="paper/dashboard.html">Live dashboard</a>
+  <a href="paper/account.html">Paper account</a>
+</nav>
+
+<div class="banner"><b>Registered expectation: null.</b> Nothing here is a
+strategy to follow. Both models are expected <b>not</b> to beat their
+benchmarks after trading costs — that is the pre-registered, audited
+conclusion. This page exists so anyone (including the author) can watch that
+conclusion face new data every month. If a line runs hot for a while, that is
+what randomness looks like; the project's own published rules say years of
+forward months decide, not streaks.</div>
+
+<section id="model1">
+  <h2>Model 1 — the S&amp;P 500 ranker</h2>
+  <p>A monthly machine-learning system over S&amp;P 500 stocks: momentum and
+  price-history features, walk-forward XGBoost (no future data in training),
+  top ~30 names, conviction-weighted, 10% position cap, 30% sector cap,
+  rebalanced monthly against real trading costs.</p>
+  <p><b>What testing found:</b> on a survivorship-honest rebuild of its data —
+  including the stocks that later died and left the index — the backtest's
+  apparent +3.1%/yr alpha collapsed to <b>−0.4%/yr (t&nbsp;=&nbsp;−0.15)</b>:
+  statistically nothing. The exciting version of this model was an illusion
+  created by testing on today's surviving stocks. It paper-trades on anyway,
+  because a published null deserves a live test too.</p>
+  <div class="card">
+    <div class="verdict" id="sp-tiles"></div>
+    <div id="sp-chartblock"></div>
+    <details><summary>Monthly table</summary><div id="sp-table"></div></details>
+  </div>
+</section>
+
+<section id="model2">
+  <h2>Model 2 — the same machine, aimed at small-caps (“SMALL/clone”)</h2>
+  <p>The identical production machinery cloned — zero re-tuning — into the
+  small-cap band (dollar-volume ranks 1001–2000), where market folklore says
+  edges hide. It was one of 18 pre-registered strategies tested in a gated
+  campaign: hypotheses frozen before any result existed, a build sample
+  (2009–2018) gated by 2,000 cost-bearing placebo portfolios, and a confirm
+  sample (2019–2026) that could be touched <b>exactly once, ever</b>.</p>
+  <p><b>What happened:</b> it was the campaign's sole build-sample survivor
+  (+1.1%/yr, placebo-calibrated p&nbsp;=&nbsp;0.0135) — then the one-shot
+  confirm test rejected it on every registered prong. The chart below is the
+  actual sealed confirm window, plotted from the published artifacts.</p>
+  <div class="card">
+    <div class="verdict" id="cl-tiles"></div>
+    <div class="legend" id="cl-legend"></div>
+    <div class="chartwrap" id="cl-chart"></div>
+    <p class="fineprint" id="cl-note"></p>
+    <details><summary>Monthly table (89 confirm months + forward)</summary><div id="cl-table"></div></details>
+  </div>
+</section>
+
+<section id="cells">
+  <h2>Every registered strategy, disclosed</h2>
+  <p>Selective reporting is how backtests lie: run twenty ideas, publish the
+  winner. The defense is simple — <b>register everything first, then publish
+  everything</b>. Below is the complete pre-registered slate and each cell's
+  build-sample result under the frozen rules, including the embarrassing rows.
+  Net and gross are annualized excess vs the cell's band benchmark; <i>p</i> is
+  the placebo-calibrated rank against 2,000 cost-bearing imposters
+  (gate: ≤ 0.023).</p>
+  <div class="card">
+    <div class="tscroll" id="cells-table"></div>
+    <p class="fineprint">Disqualified = the cell's placebo null failed a
+    registered validity check (delisting-exposure mismatch) in the
+    anti-conservative direction, so by pre-stated rule it cannot pass —
+    its small p is exactly the false positive the check predicted. The gross
+    column is the campaign's real finding: information exists; costs eat it.</p>
+  </div>
+</section>
+
+<section id="process">
+  <h2>Why these nulls can be trusted</h2>
+  <p>Anyone can publish a backtest. The value here is the process: every
+  hypothesis, threshold, and consequence was written down and hash-frozen
+  <b>before</b> results existed; every deviation went through a signed,
+  dated amendment protocol; three independent audit sessions reproduced every
+  binding number bit-for-bit from pinned artifacts; and the final test ran
+  once, under seal, with the null distribution locked before the answer was
+  revealed. The full record — pre-registration, 42 amendments, 16 verbatim
+  sign-offs, audit reports, hash manifests — is preserved.</p>
+  <div class="statsrow">
+    <div class="tile"><div class="v">18</div><div class="d">strategies pre-registered</div></div>
+    <div class="tile"><div class="v">3</div><div class="d">independent audits</div></div>
+    <div class="tile"><div class="v">42</div><div class="d">signed amendments</div></div>
+    <div class="tile"><div class="v">1</div><div class="d">confirm touch, ever</div></div>
+    <div class="tile"><div class="v">0</div><div class="d">edges that survived</div></div>
+  </div>
+  <p>The campaign's one genuinely useful market finding: several signals
+  <b>do</b> carry real predictive information — six beat their placebo nulls
+  at p-values as low as 0.0005 — and <b>trading costs consume all of it</b>.
+  The information is real; the profit is not. That is the oldest result in
+  the anomalies literature, reproduced independently on delisting-honest
+  data.</p>
+</section>
+
+<footer>
+  <p>Educational research project by a student. Paper trading only — no real
+  money is or was traded, and nothing here is investment advice. Ledgers are
+  append-only; locked monthly snapshots prove picks predate returns; missed
+  months appear as gaps, never backfills. <span id="built"></span></p>
+  <details>
+    <summary>Provenance — SHA-256 anchors of the governing record</summary>
+    <p>The campaign's binding documents are hash-pinned. These digests are
+    recomputed from the files on disk every time this site's data is rebuilt;
+    anyone holding a copy of the record can verify it byte-for-byte
+    (Windows: <code>certutil -hashfile &lt;file&gt; SHA256</code>).</p>
+    <div class="hashes" id="prov"></div>
+  </details>
+</footer>
+</main>
+
+<script>
+(async function () {
+  // theme toggle
+  const btn = document.getElementById("themebtn");
+  btn.onclick = () => {
+    const r = document.documentElement;
+    const cur = r.getAttribute("data-theme") ||
+      (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    r.setAttribute("data-theme", cur === "dark" ? "light" : "dark");
+    draw();  // re-render charts with the other mode's series steps
+  };
+
+  let D;
+  try { D = await (await fetch("data.json")).json(); }
+  catch (e) {
+    document.getElementById("sp-tiles").innerHTML =
+      "<p>data.json not found — serve this folder over http (see README).</p>";
+    return;
+  }
+  document.getElementById("built").textContent = "Data rebuilt " + D.built_utc + ".";
+
+  const fmtPct = (x, dp=2) => (x >= 0 ? "+" : "") + (100*x).toFixed(dp) + "%";
+  const cls = x => x >= 0 ? "pos" : "neg";
+  const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+  function tiles(el, list) {
+    el.innerHTML = list.map(t =>
+      `<div class="tile"><div class="k">${t.k}</div>` +
+      `<div class="v ${t.c||""}">${t.v}</div><div class="d">${t.d||""}</div></div>`).join("");
+  }
+
+  function table(el, head, rows) {
+    el.innerHTML = "<table><thead><tr>" + head.map(h=>`<th>${h}</th>`).join("") +
+      "</tr></thead><tbody>" + rows.map(r => "<tr>" +
+      r.map(c=>`<td>${c}</td>`).join("") + "</tr>").join("") + "</tbody></table>";
+  }
+
+  // ---- generic SVG line chart with crosshair tooltip ----
+  function lineChart(wrapEl, labels, seriesDefs, opts) {
+    wrapEl.innerHTML = "";
+    const W = 840, H = 340, L = 52, R = 86, T = 14, B = 30;
+    const n = labels.length;
+    const all = seriesDefs.flatMap(s => s.vals.filter(v => v != null));
+    let lo = Math.min(...all), hi = Math.max(...all);
+    const pad = (hi - lo) * 0.06 || 0.05; lo -= pad; hi += pad;
+    const X = i => L + (W - L - R) * (n <= 1 ? 0.5 : i / (n - 1));
+    const Y = v => T + (H - T - B) * (1 - (v - lo) / (hi - lo));
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.classList.add("chart");
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", (opts && opts.aria) ||
+      "Line chart: cumulative growth of $1 for " + seriesDefs.map(s=>s.name).join(", "));
+    let g = "";
+    // horizontal hairlines + y labels
+    const steps = 4;
+    for (let i = 0; i <= steps; i++) {
+      const v = lo + (hi - lo) * i / steps, y = Y(v);
+      g += `<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="${css('--grid')}" stroke-width="1"/>`;
+      g += `<text x="${L-8}" y="${y+4}" text-anchor="end" font-size="11" fill="${css('--muted')}">$${v.toFixed(2)}</text>`;
+    }
+    // x ticks: januaries (or first/last when few points)
+    labels.forEach((lb, i) => {
+      const isJan = lb.endsWith("-01");
+      if ((n > 20 && isJan) || (n <= 20 && (i === 0 || i === n-1))) {
+        g += `<text x="${X(i)}" y="${H-8}" text-anchor="middle" font-size="11" fill="${css('--muted')}">${lb.slice(0,4)}</text>`;
+        g += `<line x1="${X(i)}" x2="${X(i)}" y1="${H-B}" y2="${H-B+4}" stroke="${css('--axis')}" stroke-width="1"/>`;
+      }
+    });
+    // baseline at $1
+    if (lo < 1 && hi > 1)
+      g += `<line x1="${L}" x2="${W-R}" y1="${Y(1)}" y2="${Y(1)}" stroke="${css('--axis')}" stroke-width="1" stroke-dasharray="3 3"/>`;
+    // optional divider (confirm | forward)
+    if (opts && opts.divider != null && opts.divider < n - 1) {
+      const x = X(opts.divider);
+      g += `<line x1="${x}" x2="${x}" y1="${T}" y2="${H-B}" stroke="${css('--axis')}" stroke-width="1" stroke-dasharray="5 4"/>`;
+      g += `<text x="${x+5}" y="${T+12}" font-size="10.5" fill="${css('--muted')}">verdict published</text>`;
+    }
+    // series paths + end labels
+    const endLabels = [];
+    seriesDefs.forEach(s => {
+      let dstr = "", started = false;
+      s.vals.forEach((v, i) => {
+        if (v == null) return;
+        dstr += (started ? "L" : "M") + X(i).toFixed(1) + " " + Y(v).toFixed(1) + " ";
+        started = true;
+      });
+      g += `<path d="${dstr}" fill="none" stroke="${s.color}" stroke-width="2" stroke-linejoin="round"/>`;
+      const lastIdx = s.vals.length - 1;
+      const lastVal = s.vals[lastIdx];
+      if (lastVal != null) {
+        g += `<circle cx="${X(lastIdx)}" cy="${Y(lastVal)}" r="3.5" fill="${s.color}" ` +
+             `stroke="${css('--surface')}" stroke-width="2"/>`;
+        endLabels.push({ y: Y(lastVal), name: s.name, color: s.color });
+      }
+    });
+    // collision-avoid end labels
+    endLabels.sort((a,b) => a.y - b.y);
+    for (let i = 1; i < endLabels.length; i++)
+      if (endLabels[i].y - endLabels[i-1].y < 14) endLabels[i].y = endLabels[i-1].y + 14;
+    endLabels.forEach(e => {
+      g += `<text x="${W-R+8}" y="${e.y+4}" font-size="11.5" fill="${css('--ink-2')}">` +
+           `<tspan fill="${e.color}">●</tspan> ${e.name}</text>`;
+    });
+    svg.innerHTML = g + `<line id="xh" x1="0" x2="0" y1="${T}" y2="${H-B}" stroke="${css('--axis')}" stroke-width="1" visibility="hidden"/>`;
+    wrapEl.appendChild(svg);
+    // tooltip
+    const tip = document.createElement("div"); tip.className = "tip"; wrapEl.appendChild(tip);
+    const xh = svg.querySelector("#xh");
+    svg.addEventListener("pointermove", ev => {
+      const r = svg.getBoundingClientRect();
+      const fx = (ev.clientX - r.left) / r.width * W;
+      let i = Math.round((fx - L) / ((W - L - R) / (n - 1)));
+      i = Math.max(0, Math.min(n - 1, i));
+      xh.setAttribute("x1", X(i)); xh.setAttribute("x2", X(i));
+      xh.setAttribute("visibility", "visible");
+      tip.style.display = "block";
+      tip.innerHTML = `<div class="m">${labels[i]}</div>` + seriesDefs.map(s => {
+        const v = s.vals[i];
+        return `<div class="row"><span class="chip" style="background:${s.color}"></span>` +
+               `${s.name}<span class="val">${v==null?"—":"$"+v.toFixed(3)}</span></div>`;
+      }).join("");
+      const px = (X(i) / W) * r.width;
+      tip.style.left = Math.min(px + 14, r.width - tip.offsetWidth - 6) + "px";
+      tip.style.top = (ev.clientY - r.top + 14) + "px";
+    });
+    svg.addEventListener("pointerleave", () => {
+      tip.style.display = "none"; xh.setAttribute("visibility", "hidden");
+    });
+  }
+
+  function draw() {
+    // ----- Model 1 -----
+    const sp = D.sp, m = sp.months, k = m.length;
+    const cumP = k ? sp.cum_port[k-1] - 1 : 0, cumS = k ? sp.cum_spy[k-1] - 1 : 0;
+    tiles(document.getElementById("sp-tiles"), [
+      { k:"live months", v:k, d:"scored on the paper ledger" },
+      { k:"ranker (cum.)", v:fmtPct(cumP), c:cls(cumP), d:"net of 15bps/side costs" },
+      { k:"S&P 500 (cum.)", v:fmtPct(cumS), c:cls(cumS), d:"SPY, same months" },
+      { k:"excess", v:fmtPct(cumP-cumS), c:cls(cumP-cumS), d:"the number that matters" },
+      { k:"registered expectation", v:"≈ 0", d:"alpha −0.4%/yr, t = −0.15 on complete data" },
+    ]);
+    const blk = document.getElementById("sp-chartblock");
+    if (k >= 3) {
+      blk.innerHTML = `<div class="legend">` +
+        `<span><span class="chip" style="background:${css('--s1')}"></span>Ranker (net)</span>` +
+        `<span><span class="chip" style="background:${css('--s2')}"></span>S&amp;P 500</span></div>` +
+        `<div class="chartwrap" id="sp-chart"></div>`;
+      lineChart(document.getElementById("sp-chart"), m.map(x=>x.month),
+        [ { name:"Ranker", color:css('--s1'), vals: sp.cum_port },
+          { name:"S&P 500", color:css('--s2'), vals: sp.cum_spy } ]);
+    } else {
+      blk.innerHTML = `<p class="fineprint">The cumulative chart appears once the
+        ledger has 3 completed months (it has ${k}). Every month is recorded
+        above and in the table either way.</p>`;
+    }
+    table(document.getElementById("sp-table"),
+      ["month","ranker net","S&P 500","excess","turnover"],
+      m.map(x => [x.month, fmtPct(x.port), fmtPct(x.spy), fmtPct(x.excess), (100*x.turnover).toFixed(0)+"%"]));
+
+    // ----- Model 2 -----
+    const c = D.clone, r = c.result;
+    const allM = c.confirm_months.concat(c.forward_months);
+    tiles(document.getElementById("cl-tiles"), [
+      { k:"build sample", v:fmtPct(r.build_alpha_ann,1)+"/yr", d:`survivor of 18 · p = ${r.build_empirical_p}` },
+      { k:"confirm alpha", v:fmtPct(r.alpha_ann,1)+"/yr", c:cls(r.alpha_ann),
+        d:`${r.n_months} sealed months · 95% CI ${fmtPct(r.ci95_ann[0],1)} to ${fmtPct(r.ci95_ann[1],1)}` },
+      { k:"confirm p", v:r.empirical_p.toFixed(4), c:"neg",
+        d:`gate ≤ ${r.p_gate} · ${r.n_draws.toLocaleString()} placebos (escalated from ${r.p_at_2000.toFixed(4)} at 2,000)` },
+      { k:"haircut alpha", v:fmtPct(r.haircut_alpha_ann,1)+"/yr", c:cls(r.haircut_alpha_ann), d:"had to be > 0" },
+      { k:"verdict", v: r.accepted ? "ACCEPTED" : "REJECTED", c: r.accepted ? "pos":"neg", d:"final — no retry, ever" },
+    ]);
+    document.getElementById("cl-legend").innerHTML =
+      `<span><span class="chip" style="background:${css('--s1')}"></span>SMALL/clone (net)</span>` +
+      `<span><span class="chip" style="background:${css('--s2')}"></span>Small-cap band avg</span>` +
+      `<span><span class="chip" style="background:${css('--s3')}"></span>S&amp;P 500 (context)</span>`;
+    lineChart(document.getElementById("cl-chart"), allM.map(x=>x.ym),
+      [ { name:"SMALL/clone", color:css('--s1'), vals: c.cum_net },
+        { name:"Band avg",   color:css('--s2'), vals: c.cum_bench },
+        { name:"S&P 500",    color:css('--s3'), vals: c.cum_spy } ],
+      { divider: c.confirm_months.length - 1 });
+    document.getElementById("cl-note").textContent =
+      c.forward_months.length === 0
+        ? "Growth of $1, net of 40–75bps/side costs. Solid history = the sealed 2019–2026 confirm window, plotted from the published artifacts. Forward paper months will extend these lines after each month-end — awaiting the first forward month."
+        : "Growth of $1, net of costs. Left of the divider: the sealed confirm window. Right: forward paper months, appended monthly, append-only.";
+    table(document.getElementById("cl-table"),
+      ["month","clone net","band avg","S&P 500","excess vs band"],
+      allM.map(x => [x.ym, fmtPct(x.net), fmtPct(x.bench),
+                     x.spy==null?"—":fmtPct(x.spy), fmtPct(x.excess)]));
+
+    // ----- all 18 cells -----
+    const stName = { "survivor":"survived build · rejected at confirm",
+                     "dead-costs":"beat its null · costs ate it",
+                     "no-pass":"did not beat its null",
+                     "disqualified":"null invalid — cannot pass" };
+    const stCls = { "survivor":"st-survivor", "dead-costs":"st-dead",
+                    "no-pass":"st-nopass", "disqualified":"st-dq" };
+    const ct = document.getElementById("cells-table");
+    ct.innerHTML = "<table class='cells'><thead><tr>" +
+      ["strategy","band","net α/yr","gross α/yr","NW t","placebo p","outcome"]
+        .map(h=>`<th>${h}</th>`).join("") + "</tr></thead><tbody>" +
+      D.cells.map(c => `<tr><td>${c.signal}</td><td>${c.band}</td>` +
+        `<td class="${cls(c.net_ann)}">${fmtPct(c.net_ann,1)}</td>` +
+        `<td>${c.gross_ann==null?"—":fmtPct(c.gross_ann,1)}</td>` +
+        `<td>${c.nw_t.toFixed(2)}</td><td>${c.p.toFixed(4)}</td>` +
+        `<td class="status ${stCls[c.status]}">${stName[c.status]}</td></tr>`).join("") +
+      "</tbody></table>";
+
+    // ----- provenance -----
+    document.getElementById("prov").innerHTML =
+      D.provenance.map(x => `<div><b>${x.file}</b> ${x.sha256}</div>`).join("");
+  }
+
+  draw();
+})();
+</script>
+</body>
+</html>
