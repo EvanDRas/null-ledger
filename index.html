@@ -120,6 +120,15 @@
   .hashes { font:0.72rem/1.7 ui-monospace,Consolas,monospace; color:var(--muted);
             overflow-x:auto; white-space:nowrap; margin-top:8px; }
   .hashes b { color:var(--ink-2); font-weight:600; }
+  .poscols { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:720px) { .poscols { grid-template-columns:1fr; } }
+  .poscols h3 { margin-top:0; }
+  .postable { max-height:340px; overflow-y:auto; margin-top:10px; }
+  .chips { margin-top:10px; font-size:0.82rem; line-height:2; }
+  .chips b { color:var(--ink); }
+  .chip-t { display:inline-block; border:1px solid var(--border);
+            border-radius:6px; padding:1px 7px; margin-right:4px;
+            background:var(--page); font-variant-numeric:tabular-nums; }
 </style>
 </head>
 <body>
@@ -186,6 +195,18 @@ forward months decide, not streaks.</div>
     <div class="chartwrap" id="cl-chart"></div>
     <p class="fineprint" id="cl-note"></p>
     <details><summary>Monthly table (89 confirm months + forward)</summary><div id="cl-table"></div></details>
+  </div>
+</section>
+
+<section id="positioning">
+  <h2>Current positioning — what the models actually hold</h2>
+  <p>Both models' holdings come from <b>locked monthly snapshots</b> — files
+  written the moment picks are made and never edited, so the positions
+  provably predate their returns. Buys and sells are the month-over-month
+  changes between snapshots.</p>
+  <div class="poscols">
+    <div class="card" id="pos-m1"></div>
+    <div class="card" id="pos-m2"></div>
   </div>
 </section>
 
@@ -431,12 +452,52 @@ forward months decide, not streaks.</div>
       { divider: c.confirm_months.length - 1 });
     document.getElementById("cl-note").textContent =
       c.forward_months.length === 0
-        ? "Growth of $1, net of 40–75bps/side costs. Solid history = the sealed 2019–2026 confirm window, plotted from the published artifacts. Forward paper months will extend these lines after each month-end — awaiting the first forward month."
+        ? "Growth of $1, net of 40–75bps/side costs. Solid history = the sealed 2019–2026 confirm window, plotted from the published artifacts. The forward runner is live — its current holdings are in the positioning section below, and the first scored forward month lands after the next month-end."
         : "Growth of $1, net of costs. Left of the divider: the sealed confirm window. Right: forward paper months, appended monthly, append-only.";
     table(document.getElementById("cl-table"),
       ["month","clone net","band avg","S&P 500","excess vs band"],
       allM.map(x => [x.ym, fmtPct(x.net), fmtPct(x.bench),
                      x.spy==null?"—":fmtPct(x.spy), fmtPct(x.excess)]));
+
+    // ----- current positioning -----
+    function posCard(el, title, p, extraNote) {
+      if (!p) {
+        el.innerHTML = `<h3>${title}</h3><p class="fineprint">Forward runner
+          not yet live — holdings appear after its first locked formation.</p>`;
+        return;
+      }
+      const rows = p.holdings.map(h =>
+        `<tr><td>${h.t}</td><td>${h.sector || ""}</td>` +
+        `<td>${(100 * h.w).toFixed(1)}%</td></tr>`).join("");
+      const chips = list => list.length
+        ? list.map(t => `<span class="chip-t">${t}</span>`).join("")
+        : "<span class='fineprint'>none</span>";
+      const trade = p.first_formation
+        ? `<div class="chips"><b>Initial portfolio</b> — first formation,
+           all positions are new buys.</div>`
+        : `<div class="chips"><b>Bought:</b> ${chips(p.buys)}<br>
+           <b>Sold:</b> ${chips(p.sells)}</div>`;
+      el.innerHTML = `<h3>${title}</h3>
+        <p class="fineprint">Formation ${p.formation} ·
+        ${p.holdings.length} positions${p.late_lock ?
+        " · <b>flag:</b> this formation was locked late (runner came online " +
+        "mid-month) — disclosed, deterministic from frozen rules" : ""}</p>
+        <div class="postable"><table><thead><tr><th>ticker</th><th>sector</th>
+        <th>weight</th></tr></thead><tbody>${rows}</tbody></table></div>
+        ${trade}${extraNote || ""}`;
+    }
+    posCard(document.getElementById("pos-m1"),
+      "Model 1 — S&P 500 ranker", D.positioning.m1,
+      `<p class="fineprint">Executed orders, fills, and fees:
+       <a href="paper/account.html">paper account</a>.</p>`);
+    posCard(document.getElementById("pos-m2"),
+      "Model 2 — SMALL/clone (forward)", D.positioning.m2,
+      D.positioning.m2 ? `<p class="fineprint">Forward implementation is
+       approximate vs the audited campaign: free-data price splice, universe
+       frozen to the July-2026 eligible list (no new listings), simplified
+       delisting handling, month-end execution. Every degradation is
+       disclosed in the runner's output; the sealed campaign result is
+       unaffected.</p>` : "");
 
     // ----- all 18 cells -----
     const stName = { "survivor":"survived build · rejected at confirm",

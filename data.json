@@ -1,5 +1,5 @@
 {
- "built_utc": "2026-08-22 16:38 UTC",
+ "built_utc": "2026-08-22 17:11 UTC",
  "sp": {
   "months": [
    {
@@ -1105,6 +1105,396 @@
    "status": "disqualified"
   }
  ],
+ "positioning": {
+  "m1": {
+   "formation": "2026-07",
+   "holdings": [
+    {
+     "t": "DDOG",
+     "w": 0.0575,
+     "sector": "Unknown"
+    },
+    {
+     "t": "PANW",
+     "w": 0.0562,
+     "sector": "Information Technology"
+    },
+    {
+     "t": "DELL",
+     "w": 0.0561,
+     "sector": "Information Technology"
+    },
+    {
+     "t": "APA",
+     "w": 0.0558,
+     "sector": "Energy"
+    },
+    {
+     "t": "TER",
+     "w": 0.0555,
+     "sector": "Information Technology"
+    },
+    {
+     "t": "LITE",
+     "w": 0.0554,
+     "sector": "Unknown"
+    },
+    {
+     "t": "AMAT",
+     "w": 0.0545,
+     "sector": "Information Technology"
+    },
+    {
+     "t": "SNDK",
+     "w": 0.0529,
+     "sector": "Information Technology"
+    },
+    {
+     "t": "MU",
+     "w": 0.052,
+     "sector": "Information Technology"
+    },
+    {
+     "t": "VLO",
+     "w": 0.0516,
+     "sector": "Energy"
+    },
+    {
+     "t": "CF",
+     "w": 0.0503,
+     "sector": "Materials"
+    },
+    {
+     "t": "OXY",
+     "w": 0.0501,
+     "sector": "Energy"
+    },
+    {
+     "t": "LRCX",
+     "w": 0.0481,
+     "sector": "Information Technology"
+    },
+    {
+     "t": "MRNA",
+     "w": 0.0467,
+     "sector": "Health Care"
+    },
+    {
+     "t": "EOG",
+     "w": 0.0384,
+     "sector": "Energy"
+    },
+    {
+     "t": "EIX",
+     "w": 0.0293,
+     "sector": "Utilities"
+    },
+    {
+     "t": "HWM",
+     "w": 0.0264,
+     "sector": "Industrials"
+    },
+    {
+     "t": "LUV",
+     "w": 0.0217,
+     "sector": "Industrials"
+    },
+    {
+     "t": "SW",
+     "w": 0.0211,
+     "sector": "Industrials"
+    },
+    {
+     "t": "LMT",
+     "w": 0.0202,
+     "sector": "Industrials"
+    },
+    {
+     "t": "PM",
+     "w": 0.0187,
+     "sector": "Consumer Staples"
+    },
+    {
+     "t": "HON",
+     "w": 0.0186,
+     "sector": "Industrials"
+    },
+    {
+     "t": "LHX",
+     "w": 0.0152,
+     "sector": "Industrials"
+    },
+    {
+     "t": "ETR",
+     "w": 0.012,
+     "sector": "Utilities"
+    },
+    {
+     "t": "WMB",
+     "w": 0.012,
+     "sector": "Energy"
+    },
+    {
+     "t": "CL",
+     "w": 0.0102,
+     "sector": "Consumer Staples"
+    },
+    {
+     "t": "CCL",
+     "w": 0.0067,
+     "sector": "Consumer Discretionary"
+    },
+    {
+     "t": "CTVA",
+     "w": 0.0065,
+     "sector": "Materials"
+    }
+   ],
+   "buys": [
+    "AMAT",
+    "CCL",
+    "CL",
+    "DDOG",
+    "DELL",
+    "EIX",
+    "EOG",
+    "ETR",
+    "LHX",
+    "LITE",
+    "LMT",
+    "LRCX",
+    "MRNA",
+    "MU",
+    "PANW",
+    "PM",
+    "SNDK",
+    "SW",
+    "TER",
+    "WMB"
+   ],
+   "sells": [
+    "AIZ",
+    "CMI",
+    "DOW",
+    "DXCM",
+    "FDX",
+    "FITB",
+    "GNRC",
+    "GS",
+    "JBL",
+    "KLAC",
+    "LYB",
+    "MPC",
+    "PSX",
+    "PWR",
+    "RF",
+    "ROK",
+    "SLB",
+    "STLD",
+    "TFC",
+    "USB"
+   ],
+   "first_formation": false
+  },
+  "m2": {
+   "as_of_utc": "2026-08-22 17:11 UTC",
+   "formation": "2026-07",
+   "late_lock": true,
+   "holdings": [
+    {
+     "t": "BAND",
+     "w": 0.0436,
+     "sector": "Services"
+    },
+    {
+     "t": "ICHR",
+     "w": 0.0433,
+     "sector": "Manufacturing"
+    },
+    {
+     "t": "COHU",
+     "w": 0.0421,
+     "sector": "Manufacturing"
+    },
+    {
+     "t": "CHEF",
+     "w": 0.0415,
+     "sector": "Wholesale"
+    },
+    {
+     "t": "LASR",
+     "w": 0.0404,
+     "sector": "Manufacturing"
+    },
+    {
+     "t": "PLPC",
+     "w": 0.0396,
+     "sector": "Construction"
+    },
+    {
+     "t": "DRH",
+     "w": 0.0391,
+     "sector": "Finance/RE"
+    },
+    {
+     "t": "PK",
+     "w": 0.0389,
+     "sector": "Services"
+    },
+    {
+     "t": "ECPG",
+     "w": 0.0386,
+     "sector": "Finance/RE"
+    },
+    {
+     "t": "AGM",
+     "w": 0.0379,
+     "sector": "Finance/RE"
+    },
+    {
+     "t": "AIT",
+     "w": 0.0376,
+     "sector": "Wholesale"
+    },
+    {
+     "t": "PAGP",
+     "w": 0.0375,
+     "sector": "Transport/Comms"
+    },
+    {
+     "t": "GRPN",
+     "w": 0.0375,
+     "sector": "Services"
+    },
+    {
+     "t": "BPOP",
+     "w": 0.0374,
+     "sector": "Finance/RE"
+    },
+    {
+     "t": "FBP",
+     "w": 0.0373,
+     "sector": "Finance/RE"
+    },
+    {
+     "t": "CNO",
+     "w": 0.0373,
+     "sector": "Finance/RE"
+    },
+    {
+     "t": "CAKE",
+     "w": 0.0368,
+     "sector": "Retail"
+    },
+    {
+     "t": "PEB",
+     "w": 0.0355,
+     "sector": "Finance/RE"
+    },
+    {
+     "t": "INSW",
+     "w": 0.0319,
+     "sector": "Transport/Comms"
+    },
+    {
+     "t": "BRX",
+     "w": 0.0317,
+     "sector": "Finance/RE"
+    },
+    {
+     "t": "NAT",
+     "w": 0.0313,
+     "sector": "Transport/Comms"
+    },
+    {
+     "t": "ECO",
+     "w": 0.031,
+     "sector": "Transport/Comms"
+    },
+    {
+     "t": "KN",
+     "w": 0.0309,
+     "sector": "Manufacturing"
+    },
+    {
+     "t": "AAMI",
+     "w": 0.0308,
+     "sector": "Finance/RE"
+    },
+    {
+     "t": "DCO",
+     "w": 0.0276,
+     "sector": "Manufacturing"
+    },
+    {
+     "t": "WTTR",
+     "w": 0.0272,
+     "sector": "Mining/Energy"
+    },
+    {
+     "t": "AROC",
+     "w": 0.022,
+     "sector": "Utilities"
+    },
+    {
+     "t": "ATEN",
+     "w": 0.0215,
+     "sector": "Manufacturing"
+    },
+    {
+     "t": "BKD",
+     "w": 0.0121,
+     "sector": "Services"
+    },
+    {
+     "t": "SKYT",
+     "w": 0.0,
+     "sector": "Manufacturing"
+    }
+   ],
+   "buys": [
+    "AGM",
+    "AIT",
+    "BAND",
+    "BPOP",
+    "CHEF",
+    "CNO",
+    "COHU",
+    "DRH",
+    "FBP",
+    "GRPN",
+    "ICHR",
+    "LASR",
+    "PAGP",
+    "PK",
+    "PLPC"
+   ],
+   "sells": [
+    "ALKS",
+    "LNTH",
+    "MATX",
+    "MSGE",
+    "MSGS",
+    "NHC",
+    "NTCT",
+    "OII",
+    "PBI",
+    "PLXS",
+    "PSMT",
+    "SUN",
+    "UNIT",
+    "VIRT",
+    "WERN"
+   ],
+   "degradations": [
+    "D1 yahoo splice",
+    "D2 frozen universe",
+    "D3 delisting=0% convention",
+    "D4 month-end execution",
+    "D5 panel truncated to 2015+"
+   ]
+  }
+ },
  "provenance": [
   {
    "file": "EXECUTION_CHARTER.md",
