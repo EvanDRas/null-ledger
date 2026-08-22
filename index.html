@@ -283,7 +283,7 @@ forward months decide, not streaks.</div>
   };
 
   let D;
-  try { D = await (await fetch("data.json")).json(); }
+  try { D = await (await fetch("data.json", {cache: "no-store"})).json(); }
   catch (e) {
     document.getElementById("sp-tiles").innerHTML =
       "<p>data.json not found — serve this folder over http (see README).</p>";
