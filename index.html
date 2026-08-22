@@ -486,13 +486,14 @@ forward months decide, not streaks.</div>
         <th>weight</th></tr></thead><tbody>${rows}</tbody></table></div>
         ${trade}${extraNote || ""}`;
     }
+    const P = D.positioning || {};   // absent on stale-cached data: degrade, don't die
     posCard(document.getElementById("pos-m1"),
-      "Model 1 — S&P 500 ranker", D.positioning.m1,
+      "Model 1 — S&P 500 ranker", P.m1,
       `<p class="fineprint">Executed orders, fills, and fees:
        <a href="paper/account.html">paper account</a>.</p>`);
     posCard(document.getElementById("pos-m2"),
-      "Model 2 — SMALL/clone (forward)", D.positioning.m2,
-      D.positioning.m2 ? `<p class="fineprint">Forward implementation is
+      "Model 2 — SMALL/clone (forward)", P.m2,
+      P.m2 ? `<p class="fineprint">Forward implementation is
        approximate vs the audited campaign: free-data price splice, universe
        frozen to the July-2026 eligible list (no new listings), simplified
        delisting handling, month-end execution. Every degradation is
