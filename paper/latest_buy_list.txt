@@ -1,36 +1,36 @@
 
-BUY LIST -- 2026-08 signals, $100,000 account, prices as of 2026-09-01
+BUY LIST -- 2026-08 signals, $100,000 account, prices as of 2026-09-25
 ==============================================================
 Ticker Sector                   Weight   Dollars  Shares  Note
 --------------------------------------------------------------
-DELL   Information Technology    4.4%     4,391      10  
+DELL   Information Technology    4.4%     4,391       7  
 SNDK   Information Technology    4.4%     4,391       2  
 MU     Information Technology    4.4%     4,356       4  
-HPE    Information Technology    4.3%     4,307      84  
-AMD    Information Technology    4.3%     4,265       9  
-STX    Information Technology    4.2%     4,237       5  
-INTC   Information Technology    4.2%     4,195      47  
-CNC    Health Care               4.1%     4,056      62  
+HPE    Information Technology    4.3%     4,307      68  
+AMD    Information Technology    4.3%     4,265       6  
+STX    Information Technology    4.2%     4,237       4  
+INTC   Information Technology    4.2%     4,195      34  
+CNC    Health Care               4.1%     4,056      65  
 WDC    Information Technology    4.0%     4,007       8  
 HUM    Health Care               3.9%     3,888       9  
-DDOG   Unknown                   3.9%     3,867      17  
+DDOG   Unknown                   3.9%     3,867      14  
 PANW   Information Technology    3.9%     3,867      10  
-APA    Energy                    3.8%     3,825      86  
+APA    Energy                    3.8%     3,825      89  
 NUE    Materials                 3.8%     3,818      15  
-VLO    Energy                    3.8%     3,805      10  
-MRNA   Health Care               3.8%     3,798      24  
+VLO    Energy                    3.8%     3,805       9  
+MRNA   Health Care               3.8%     3,798      19  
 MPC    Energy                    3.7%     3,707       9  
-LITE   Unknown                   3.6%     3,630       4  
-FOXA   Communication Services    3.5%     3,476      52  
-EXPE   Consumer Discretionary    3.5%     3,469      11  
-TRGP   Energy                    3.3%     3,337      11  
-FOX    Communication Services    3.3%     3,309      56  
+LITE   Unknown                   3.6%     3,630       3  
+FOXA   Communication Services    3.5%     3,476      55  
+EXPE   Consumer Discretionary    3.5%     3,469      13  
+TRGP   Energy                    3.3%     3,337      12  
+FOX    Communication Services    3.3%     3,309      58  
 STLD   Materials                 3.3%     3,295      14  
-SLB    Energy                    3.3%     3,288      57  
-CF     Materials                 3.1%     3,058      22  
-CTVA   Materials                 1.7%     1,724      19  
-WMB    Energy                    1.5%     1,508      20  
-EOG    Energy                    1.0%       984       6  
+SLB    Energy                    3.3%     3,288      63  
+CF     Materials                 3.1%     3,058      26  
+CTVA   Materials                 1.7%     1,724      21  
+WMB    Energy                    1.5%     1,508      21  
+EOG    Energy                    1.0%       984       7  
 ETR    Utilities                 0.1%       140       1  SKIP (tiny)
 EIX    Utilities                 0.0%         0       0  SKIP (tiny)
 --------------------------------------------------------------

@@ -1,5 +1,5 @@
 {
- "built_utc": "2026-09-27 20:52 UTC",
+ "built_utc": "2026-09-27 21:09 UTC",
  "sp": {
   "months": [
    {
@@ -12,8 +12,8 @@
    {
     "month": "2026-08",
     "port": 0.11446,
-    "spy": 0.0268,
-    "excess": 0.08766,
+    "spy": 0.02426,
+    "excess": 0.0902,
     "turnover": 0.733
    }
   ],
@@ -23,7 +23,7 @@
   ],
   "cum_spy": [
    1.00035,
-   1.02716
+   1.02462
   ],
   "verdict": {
    "complete_data_alpha_ann": -0.0041,
@@ -1132,9 +1132,9 @@
   "n": 2,
   "judge_at": 12,
   "decide_at": 24,
-  "cum_excess": 0.1316,
-  "mean_monthly_excess": 0.0635,
-  "t_stat": 2.63,
+  "cum_excess": 0.1341,
+  "mean_monthly_excess": 0.0648,
+  "t_stat": 2.55,
   "hit": 2,
   "cost_drag_cum": 0.0037,
   "months": [
@@ -1169,7 +1169,7 @@
    },
    {
     "ym": "2026-08",
-    "excess": 0.08766,
+    "excess": 0.0902,
     "top": [
      {
       "t": "MRNA",
@@ -1203,11 +1203,11 @@
    "seed": 20260927,
    "percentile": 99.9,
    "band": {
-    "5": -0.0401,
-    "25": -0.0108,
-    "50": 0.0096,
-    "75": 0.0311,
-    "95": 0.0682
+    "5": -0.0376,
+    "25": -0.0082,
+    "50": 0.0122,
+    "75": 0.0337,
+    "95": 0.0708
    },
    "note": "equal-weight random portfolios, costless, drawn from the point-in-time S&P membership -- a conservative luck yardstick, not a benchmark"
   }
@@ -1217,7 +1217,7 @@
    "ym": "2026-08",
    "title": "August 2026 result",
    "lines": [
-    "Model 1 (S&P ranker): +11.45% vs S&P +2.68% \u2014 excess +8.77%.",
+    "Model 1 (S&P ranker): +11.45% vs S&P +2.43% \u2014 excess +9.02%.",
     "Biggest driver: MRNA +7.3pp (62% of the month).",
     "Model 2 (SMALL/clone, forward): -4.49% vs its band +2.61% \u2014 excess -7.10%.",
     "Record: 2 of 12 rows before judgment. Registered expectation for both models: no edge after costs. Paper only; not advice."
@@ -1415,7 +1415,7 @@
    "first_formation": false
   },
   "m2": {
-   "as_of_utc": "2026-09-27 20:46 UTC",
+   "as_of_utc": "2026-09-27 21:09 UTC",
    "formation": "2026-08",
    "late_lock": true,
    "holdings": [
