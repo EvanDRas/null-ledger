@@ -173,6 +173,7 @@ forward months decide, not streaks.</div>
   <div class="card">
     <div class="verdict" id="sp-tiles"></div>
     <div id="sp-chartblock"></div>
+    <div id="sp-evidence"></div>
     <details><summary>Monthly table</summary><div id="sp-table"></div></details>
   </div>
 </section>
@@ -425,6 +426,50 @@ forward months decide, not streaks.</div>
         ledger has 3 completed months (it has ${k}). Every month is recorded
         above and in the table either way.</p>`;
     }
+    // ----- evidence panel (Model 1) -----
+    const X = D.m1x;
+    const ev = document.getElementById("sp-evidence");
+    if (X && ev) {
+      const anat = X.months.map(mo => {
+        const f = x => `${x.t} ${x.pp >= 0 ? "+" : ""}${x.pp}pp`;
+        const conc = mo.top1_share != null
+          ? ` · top name = ${(100 * mo.top1_share).toFixed(0)}% of the month` : "";
+        return `<tr><td>${mo.ym}</td><td class="${cls(mo.excess)}">` +
+          `${fmtPct(mo.excess, 1)}</td>` +
+          `<td style="text-align:left">${mo.top.map(f).join(", ")}</td>` +
+          `<td style="text-align:left">${mo.bottom.map(f).join(", ")}${conc}</td></tr>`;
+      }).join("");
+      const L = X.luck;
+      ev.innerHTML = `<h3 style="margin-top:22px">Evidence panel —
+        how much does this record actually prove?</h3>
+        <div class="verdict" id="sp-ev-tiles"></div>
+        <div class="tscroll"><table class="cells" style="margin-top:8px">
+        <thead><tr><th>month</th><th>excess</th>
+        <th style="text-align:left">made by</th>
+        <th style="text-align:left">hurt by</th></tr></thead>
+        <tbody>${anat}</tbody></table></div>
+        <p class="fineprint">${L ? `Luck yardstick: this cumulative excess beats
+        <b>${L.percentile}%</b> of ${L.K.toLocaleString()} random
+        ${L.n_stocks}-stock portfolios (${L.note}; seed ${L.seed}, recomputed
+        every build). Read it carefully: a high percentile means this run is
+        unusual versus <i>naive</i> luck — it cannot distinguish skill from
+        riding a hot factor (this book is momentum-tilted and momentum is on
+        a tear) or from one moonshot stock, and the anatomy column shows both
+        at work. Only persistence across many rows separates them. ` : ""}Cumulative trading-cost
+        drag paid so far: ${fmtPct(X.cost_drag_cum, 2)}. This panel exists to
+        keep hot streaks honest, not to celebrate them.</p>`;
+      tiles(document.getElementById("sp-ev-tiles"), [
+        { k: "evidence rows", v: `${X.n} / ${X.judge_at}`,
+          d: "judge at 12 rows, decide at 24" },
+        { k: "cumulative excess", v: fmtPct(X.cum_excess, 1),
+          c: cls(X.cum_excess), d: `won ${X.hit} of ${X.n} months` },
+        { k: "t-statistic", v: X.t_stat == null ? "—" : X.t_stat.toFixed(2),
+          d: "meaningless before ~12 rows — shown anyway, honestly" },
+        { k: "luck percentile", v: L ? L.percentile + "%" : "—",
+          d: L ? "vs random portfolios, same months" : "" },
+      ]);
+    }
+
     table(document.getElementById("sp-table"),
       ["month","ranker net","S&P 500","excess","turnover"],
       m.map(x => [x.month, fmtPct(x.port), fmtPct(x.spy), fmtPct(x.excess), (100*x.turnover).toFixed(0)+"%"]));

@@ -1,20 +1,29 @@
 {
- "built_utc": "2026-08-22 17:36 UTC",
+ "built_utc": "2026-09-27 20:46 UTC",
  "sp": {
   "months": [
    {
     "month": "2026-07",
-    "port": 0.04079,
+    "port": 0.03972,
     "spy": 0.00035,
-    "excess": 0.04044,
+    "excess": 0.03937,
     "turnover": 0.5
+   },
+   {
+    "month": "2026-08",
+    "port": 0.11446,
+    "spy": 0.0268,
+    "excess": 0.08766,
+    "turnover": 0.733
    }
   ],
   "cum_port": [
-   1.04079
+   1.03972,
+   1.15873
   ],
   "cum_spy": [
-   1.00035
+   1.00035,
+   1.02716
   ],
   "verdict": {
    "complete_data_alpha_ann": -0.0041,
@@ -648,7 +657,18 @@
     "excess": -0.01978169525148469
    }
   ],
-  "forward_months": [],
+  "forward_months": [
+   {
+    "ym": "2026-07",
+    "net": -0.04489,
+    "bench": 0.02615,
+    "spy": 0.0268,
+    "excess": -0.07104,
+    "turnover": 0.5,
+    "n_missing_price": 3,
+    "sha16": "a3a5091ea8785e65"
+   }
+  ],
   "cum_net": [
    0.96307,
    0.95623,
@@ -738,7 +758,8 @@
    1.62914,
    1.72067,
    1.67963,
-   1.72037
+   1.72037,
+   1.64314
   ],
   "cum_bench": [
    1.05057,
@@ -829,7 +850,8 @@
    1.94068,
    2.10608,
    2.15934,
-   2.25442
+   2.25442,
+   2.31337
   ],
   "cum_spy": [
    1.08007,
@@ -920,7 +942,8 @@
    3.05208,
    2.90137,
    3.20617,
-   3.37489
+   3.37489,
+   3.46534
   ],
   "confirm_end": "2026-05",
   "result": {
@@ -1105,386 +1128,462 @@
    "status": "disqualified"
   }
  ],
+ "m1x": {
+  "n": 2,
+  "judge_at": 12,
+  "decide_at": 24,
+  "cum_excess": 0.1316,
+  "mean_monthly_excess": 0.0635,
+  "t_stat": 2.63,
+  "hit": 2,
+  "cost_drag_cum": 0.0037,
+  "months": [
+   {
+    "ym": "2026-07",
+    "excess": 0.03937,
+    "top": [
+     {
+      "t": "MPC",
+      "pp": 1.1
+     },
+     {
+      "t": "PSX",
+      "pp": 1.1
+     },
+     {
+      "t": "VLO",
+      "pp": 1.0
+     }
+    ],
+    "bottom": [
+     {
+      "t": "KLAC",
+      "pp": -0.8
+     },
+     {
+      "t": "JBL",
+      "pp": -0.9
+     }
+    ],
+    "top1_share": 0.27
+   },
+   {
+    "ym": "2026-08",
+    "excess": 0.08766,
+    "top": [
+     {
+      "t": "MRNA",
+      "pp": 7.3
+     },
+     {
+      "t": "LITE",
+      "pp": 1.6
+     },
+     {
+      "t": "SNDK",
+      "pp": 1.5
+     }
+    ],
+    "bottom": [
+     {
+      "t": "DDOG",
+      "pp": -0.7
+     },
+     {
+      "t": "EIX",
+      "pp": -0.8
+     }
+    ],
+    "top1_share": 0.62
+   }
+  ],
+  "luck": {
+   "K": 2000,
+   "n_stocks": 28,
+   "seed": 20260927,
+   "percentile": 99.9,
+   "band": {
+    "5": -0.0399,
+    "25": -0.0107,
+    "50": 0.0098,
+    "75": 0.0313,
+    "95": 0.0683
+   },
+   "note": "equal-weight random portfolios, costless, drawn from the point-in-time S&P membership -- a conservative luck yardstick, not a benchmark"
+  }
+ },
  "positioning": {
   "m1": {
-   "formation": "2026-07",
+   "formation": "2026-08",
    "holdings": [
     {
-     "t": "DDOG",
-     "w": 0.0575,
-     "sector": "Unknown"
-    },
-    {
-     "t": "PANW",
-     "w": 0.0562,
-     "sector": "Information Technology"
-    },
-    {
      "t": "DELL",
-     "w": 0.0561,
-     "sector": "Information Technology"
-    },
-    {
-     "t": "APA",
-     "w": 0.0558,
-     "sector": "Energy"
-    },
-    {
-     "t": "TER",
-     "w": 0.0555,
-     "sector": "Information Technology"
-    },
-    {
-     "t": "LITE",
-     "w": 0.0554,
-     "sector": "Unknown"
-    },
-    {
-     "t": "AMAT",
-     "w": 0.0545,
+     "w": 0.0439,
      "sector": "Information Technology"
     },
     {
      "t": "SNDK",
-     "w": 0.0529,
+     "w": 0.0439,
      "sector": "Information Technology"
     },
     {
      "t": "MU",
-     "w": 0.052,
+     "w": 0.0436,
      "sector": "Information Technology"
     },
     {
+     "t": "HPE",
+     "w": 0.0431,
+     "sector": "Information Technology"
+    },
+    {
+     "t": "AMD",
+     "w": 0.0427,
+     "sector": "Information Technology"
+    },
+    {
+     "t": "STX",
+     "w": 0.0424,
+     "sector": "Information Technology"
+    },
+    {
+     "t": "INTC",
+     "w": 0.042,
+     "sector": "Information Technology"
+    },
+    {
+     "t": "CNC",
+     "w": 0.0406,
+     "sector": "Health Care"
+    },
+    {
+     "t": "WDC",
+     "w": 0.0401,
+     "sector": "Information Technology"
+    },
+    {
+     "t": "HUM",
+     "w": 0.0389,
+     "sector": "Health Care"
+    },
+    {
+     "t": "DDOG",
+     "w": 0.0387,
+     "sector": "Unknown"
+    },
+    {
+     "t": "PANW",
+     "w": 0.0387,
+     "sector": "Information Technology"
+    },
+    {
+     "t": "APA",
+     "w": 0.0383,
+     "sector": "Energy"
+    },
+    {
+     "t": "NUE",
+     "w": 0.0382,
+     "sector": "Materials"
+    },
+    {
      "t": "VLO",
-     "w": 0.0516,
+     "w": 0.038,
+     "sector": "Energy"
+    },
+    {
+     "t": "MRNA",
+     "w": 0.038,
+     "sector": "Health Care"
+    },
+    {
+     "t": "MPC",
+     "w": 0.0371,
+     "sector": "Energy"
+    },
+    {
+     "t": "LITE",
+     "w": 0.0363,
+     "sector": "Unknown"
+    },
+    {
+     "t": "FOXA",
+     "w": 0.0348,
+     "sector": "Communication Services"
+    },
+    {
+     "t": "EXPE",
+     "w": 0.0347,
+     "sector": "Consumer Discretionary"
+    },
+    {
+     "t": "TRGP",
+     "w": 0.0334,
+     "sector": "Energy"
+    },
+    {
+     "t": "FOX",
+     "w": 0.0331,
+     "sector": "Communication Services"
+    },
+    {
+     "t": "STLD",
+     "w": 0.0329,
+     "sector": "Materials"
+    },
+    {
+     "t": "SLB",
+     "w": 0.0329,
      "sector": "Energy"
     },
     {
      "t": "CF",
-     "w": 0.0503,
+     "w": 0.0306,
      "sector": "Materials"
-    },
-    {
-     "t": "OXY",
-     "w": 0.0501,
-     "sector": "Energy"
-    },
-    {
-     "t": "LRCX",
-     "w": 0.0481,
-     "sector": "Information Technology"
-    },
-    {
-     "t": "MRNA",
-     "w": 0.0467,
-     "sector": "Health Care"
-    },
-    {
-     "t": "EOG",
-     "w": 0.0384,
-     "sector": "Energy"
-    },
-    {
-     "t": "EIX",
-     "w": 0.0293,
-     "sector": "Utilities"
-    },
-    {
-     "t": "HWM",
-     "w": 0.0264,
-     "sector": "Industrials"
-    },
-    {
-     "t": "LUV",
-     "w": 0.0217,
-     "sector": "Industrials"
-    },
-    {
-     "t": "SW",
-     "w": 0.0211,
-     "sector": "Industrials"
-    },
-    {
-     "t": "LMT",
-     "w": 0.0202,
-     "sector": "Industrials"
-    },
-    {
-     "t": "PM",
-     "w": 0.0187,
-     "sector": "Consumer Staples"
-    },
-    {
-     "t": "HON",
-     "w": 0.0186,
-     "sector": "Industrials"
-    },
-    {
-     "t": "LHX",
-     "w": 0.0152,
-     "sector": "Industrials"
-    },
-    {
-     "t": "ETR",
-     "w": 0.012,
-     "sector": "Utilities"
-    },
-    {
-     "t": "WMB",
-     "w": 0.012,
-     "sector": "Energy"
-    },
-    {
-     "t": "CL",
-     "w": 0.0102,
-     "sector": "Consumer Staples"
-    },
-    {
-     "t": "CCL",
-     "w": 0.0067,
-     "sector": "Consumer Discretionary"
     },
     {
      "t": "CTVA",
-     "w": 0.0065,
+     "w": 0.0172,
      "sector": "Materials"
+    },
+    {
+     "t": "WMB",
+     "w": 0.0151,
+     "sector": "Energy"
+    },
+    {
+     "t": "EOG",
+     "w": 0.0098,
+     "sector": "Energy"
     }
    ],
    "buys": [
+    "AMD",
+    "CNC",
+    "EXPE",
+    "FOX",
+    "FOXA",
+    "HPE",
+    "HUM",
+    "INTC",
+    "MPC",
+    "NUE",
+    "SLB",
+    "STLD",
+    "STX",
+    "TRGP",
+    "WDC"
+   ],
+   "sells": [
     "AMAT",
     "CCL",
     "CL",
-    "DDOG",
-    "DELL",
-    "EIX",
-    "EOG",
-    "ETR",
+    "DECK",
+    "HON",
+    "HWM",
     "LHX",
-    "LITE",
     "LMT",
     "LRCX",
-    "MRNA",
-    "MU",
-    "PANW",
+    "LUV",
+    "OXY",
     "PM",
-    "SNDK",
+    "PPG",
     "SW",
-    "TER",
-    "WMB"
-   ],
-   "sells": [
-    "AIZ",
-    "CMI",
-    "DOW",
-    "DXCM",
-    "FDX",
-    "FITB",
-    "GNRC",
-    "GS",
-    "JBL",
-    "KLAC",
-    "LYB",
-    "MPC",
-    "PSX",
-    "PWR",
-    "RF",
-    "ROK",
-    "SLB",
-    "STLD",
-    "TFC",
-    "USB"
+    "TER"
    ],
    "first_formation": false
   },
   "m2": {
-   "as_of_utc": "2026-08-22 17:11 UTC",
-   "formation": "2026-07",
+   "as_of_utc": "2026-09-27 20:46 UTC",
+   "formation": "2026-08",
    "late_lock": true,
    "holdings": [
     {
-     "t": "BAND",
-     "w": 0.0436,
+     "t": "APPS",
+     "w": 0.0442,
+     "sector": "Finance/RE"
+    },
+    {
+     "t": "AGL",
+     "w": 0.044,
      "sector": "Services"
     },
     {
-     "t": "ICHR",
-     "w": 0.0433,
+     "t": "CRSR",
+     "w": 0.0434,
      "sector": "Manufacturing"
     },
     {
-     "t": "COHU",
-     "w": 0.0421,
+     "t": "ABCL",
+     "w": 0.0434,
      "sector": "Manufacturing"
     },
     {
-     "t": "CHEF",
-     "w": 0.0415,
-     "sector": "Wholesale"
+     "t": "ABSI",
+     "w": 0.0427,
+     "sector": "Services"
     },
     {
-     "t": "LASR",
-     "w": 0.0404,
+     "t": "KOPN",
+     "w": 0.0426,
      "sector": "Manufacturing"
     },
     {
-     "t": "PLPC",
-     "w": 0.0396,
+     "t": "BAND",
+     "w": 0.0426,
+     "sector": "Services"
+    },
+    {
+     "t": "HIMX",
+     "w": 0.0413,
+     "sector": "Manufacturing"
+    },
+    {
+     "t": "BULZ",
+     "w": 0.0405,
+     "sector": "Finance/RE"
+    },
+    {
+     "t": "FTK",
+     "w": 0.0392,
+     "sector": "Manufacturing"
+    },
+    {
+     "t": "GRAL",
+     "w": 0.038,
+     "sector": "Services"
+    },
+    {
+     "t": "GEO",
+     "w": 0.0376,
      "sector": "Construction"
     },
     {
-     "t": "DRH",
-     "w": 0.0391,
+     "t": "ANAB",
+     "w": 0.0372,
+     "sector": "Manufacturing"
+    },
+    {
+     "t": "CIB",
+     "w": 0.0371,
      "sector": "Finance/RE"
     },
     {
-     "t": "PK",
-     "w": 0.0389,
+     "t": "MRAM",
+     "w": 0.0366,
+     "sector": "Manufacturing"
+    },
+    {
+     "t": "CON",
+     "w": 0.036,
      "sector": "Services"
     },
     {
-     "t": "ECPG",
-     "w": 0.0386,
-     "sector": "Finance/RE"
+     "t": "MATX",
+     "w": 0.033,
+     "sector": "Transport/Comms"
     },
     {
-     "t": "AGM",
-     "w": 0.0379,
-     "sector": "Finance/RE"
-    },
-    {
-     "t": "AIT",
-     "w": 0.0376,
+     "t": "WKC",
+     "w": 0.0329,
      "sector": "Wholesale"
     },
     {
-     "t": "PAGP",
-     "w": 0.0375,
+     "t": "DAC",
+     "w": 0.0324,
      "sector": "Transport/Comms"
     },
     {
-     "t": "GRPN",
-     "w": 0.0375,
-     "sector": "Services"
+     "t": "DIOD",
+     "w": 0.032,
+     "sector": "Manufacturing"
     },
     {
-     "t": "BPOP",
-     "w": 0.0374,
-     "sector": "Finance/RE"
-    },
-    {
-     "t": "FBP",
-     "w": 0.0373,
-     "sector": "Finance/RE"
-    },
-    {
-     "t": "CNO",
-     "w": 0.0373,
-     "sector": "Finance/RE"
-    },
-    {
-     "t": "CAKE",
-     "w": 0.0368,
-     "sector": "Retail"
+     "t": "PAGP",
+     "w": 0.0317,
+     "sector": "Transport/Comms"
     },
     {
      "t": "PEB",
-     "w": 0.0355,
-     "sector": "Finance/RE"
-    },
-    {
-     "t": "INSW",
-     "w": 0.0319,
-     "sector": "Transport/Comms"
-    },
-    {
-     "t": "BRX",
-     "w": 0.0317,
-     "sector": "Finance/RE"
-    },
-    {
-     "t": "NAT",
-     "w": 0.0313,
-     "sector": "Transport/Comms"
-    },
-    {
-     "t": "ECO",
-     "w": 0.031,
-     "sector": "Transport/Comms"
-    },
-    {
-     "t": "KN",
-     "w": 0.0309,
-     "sector": "Manufacturing"
-    },
-    {
-     "t": "AAMI",
-     "w": 0.0308,
-     "sector": "Finance/RE"
-    },
-    {
-     "t": "DCO",
      "w": 0.0276,
-     "sector": "Manufacturing"
+     "sector": "Finance/RE"
     },
     {
-     "t": "WTTR",
-     "w": 0.0272,
-     "sector": "Mining/Energy"
+     "t": "DRH",
+     "w": 0.0275,
+     "sector": "Finance/RE"
     },
     {
-     "t": "AROC",
-     "w": 0.022,
-     "sector": "Utilities"
-    },
-    {
-     "t": "ATEN",
-     "w": 0.0215,
-     "sector": "Manufacturing"
-    },
-    {
-     "t": "BKD",
-     "w": 0.0121,
+     "t": "NTCT",
+     "w": 0.0258,
      "sector": "Services"
     },
     {
-     "t": "SKYT",
-     "w": 0.0,
+     "t": "AGM",
+     "w": 0.0253,
+     "sector": "Finance/RE"
+    },
+    {
+     "t": "CHEF",
+     "w": 0.025,
+     "sector": "Wholesale"
+    },
+    {
+     "t": "UNF",
+     "w": 0.0245,
+     "sector": "Services"
+    },
+    {
+     "t": "SHO",
+     "w": 0.0245,
+     "sector": "Services"
+    },
+    {
+     "t": "COHU",
+     "w": 0.0114,
      "sector": "Manufacturing"
+    },
+    {
+     "t": "GRPN",
+     "w": 0.0,
+     "sector": "Services"
     }
    ],
    "buys": [
-    "AGM",
-    "AIT",
-    "BAND",
-    "BPOP",
-    "CHEF",
-    "CNO",
-    "COHU",
-    "DRH",
-    "FBP",
-    "GRPN",
-    "ICHR",
-    "LASR",
-    "PAGP",
-    "PK",
-    "PLPC"
+    "ABCL",
+    "ABSI",
+    "AGL",
+    "ANAB",
+    "APPS",
+    "BULZ",
+    "CIB",
+    "CON",
+    "CRSR",
+    "DAC",
+    "DIOD",
+    "FTK",
+    "GEO",
+    "GRAL",
+    "HIMX",
+    "MRAM"
    ],
    "sells": [
-    "ALKS",
-    "LNTH",
-    "MATX",
+    "AIT",
+    "AROC",
+    "ATEN",
+    "BKD",
+    "BPOP",
+    "CAKE",
+    "ECO",
+    "ECPG",
+    "ICHR",
+    "LASR",
     "MSGE",
-    "MSGS",
+    "NAT",
     "NHC",
-    "NTCT",
-    "OII",
-    "PBI",
-    "PLXS",
-    "PSMT",
-    "SUN",
+    "PK",
     "UNIT",
-    "VIRT",
-    "WERN"
+    "VIRT"
    ],
    "degradations": [
     "D1 yahoo splice",
