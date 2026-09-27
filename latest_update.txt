@@ -1,6 +1,6 @@
 The Null Ledger — August 2026 result
 
-Model 1 (S&P ranker): +11.45% vs S&P +2.43% — excess +9.02%.
+Model 1 (S&P ranker): +11.49% vs S&P +2.68% — excess +8.81%.
 Biggest driver: MRNA +7.3pp (62% of the month).
 Model 2 (SMALL/clone, forward): -4.49% vs its band +2.61% — excess -7.10%.
 Record: 2 of 12 rows before judgment. Registered expectation for both models: no edge after costs. Paper only; not advice.

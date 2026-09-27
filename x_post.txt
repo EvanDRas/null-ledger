@@ -1,5 +1,5 @@
 August result:
-M1 (S&P ranker): +11.45% vs S&P +2.43%. Driver: MRNA +7.3pp.
+M1 (S&P ranker): +11.49% vs S&P +2.68%. Driver: MRNA +7.3pp.
 M2 (small-cap clone): -4.49% vs band +2.61%.
 2 of 12 rows before judgment. Expectation: no edge after costs. Paper, not advice.
 https://evandras.github.io/null-ledger/
