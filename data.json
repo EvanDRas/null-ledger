@@ -1,5 +1,5 @@
 {
- "built_utc": "2026-09-27 20:46 UTC",
+ "built_utc": "2026-09-27 20:52 UTC",
  "sp": {
   "months": [
    {
@@ -1203,15 +1203,36 @@
    "seed": 20260927,
    "percentile": 99.9,
    "band": {
-    "5": -0.0399,
-    "25": -0.0107,
-    "50": 0.0098,
-    "75": 0.0313,
-    "95": 0.0683
+    "5": -0.0401,
+    "25": -0.0108,
+    "50": 0.0096,
+    "75": 0.0311,
+    "95": 0.0682
    },
    "note": "equal-weight random portfolios, costless, drawn from the point-in-time S&P membership -- a conservative luck yardstick, not a benchmark"
   }
  },
+ "updates": [
+  {
+   "ym": "2026-08",
+   "title": "August 2026 result",
+   "lines": [
+    "Model 1 (S&P ranker): +11.45% vs S&P +2.68% \u2014 excess +8.77%.",
+    "Biggest driver: MRNA +7.3pp (62% of the month).",
+    "Model 2 (SMALL/clone, forward): -4.49% vs its band +2.61% \u2014 excess -7.10%.",
+    "Record: 2 of 12 rows before judgment. Registered expectation for both models: no edge after costs. Paper only; not advice."
+   ]
+  },
+  {
+   "ym": "2026-07",
+   "title": "July 2026 result",
+   "lines": [
+    "Model 1 (S&P ranker): +3.97% vs S&P +0.03% \u2014 excess +3.94%.",
+    "Biggest driver: MPC +1.1pp (27% of the month).",
+    "Record: 1 of 12 rows before judgment. Registered expectation for both models: no edge after costs. Paper only; not advice."
+   ]
+  }
+ ],
  "positioning": {
   "m1": {
    "formation": "2026-08",

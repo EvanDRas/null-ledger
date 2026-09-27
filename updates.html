@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monthly updates — The Null Ledger</title>
+<meta name="description" content="One post per month, written from the ledgers themselves: both models' results, whichever way they point.">
+<link rel="alternate" type="application/rss+xml" title="The Null Ledger — monthly results" href="feed.xml">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231a1a19'/%3E%3Ctext x='32' y='46' font-size='40' text-anchor='middle' fill='%233987e5' font-family='system-ui'%3E%E2%88%85%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    color-scheme: light;
+    --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink-2:#52514e;
+    --muted:#898781; --grid:#e1e0d9; --border:rgba(11,11,11,0.10); --s1:#2a78d6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7;
+      --muted:#898781; --grid:#2c2c2a; --border:rgba(255,255,255,0.10); --s1:#3987e5;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7;
+    --muted:#898781; --grid:#2c2c2a; --border:rgba(255,255,255,0.10); --s1:#3987e5;
+  }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--page); color:var(--ink);
+         font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif; padding:0 16px 64px; }
+  main { max-width:760px; margin:0 auto; }
+  header.site { padding:40px 0 6px; }
+  .crumb { font-size:0.85rem; color:var(--muted); margin-bottom:10px; }
+  .crumb a { color:var(--s1); text-decoration:none; }
+  h1 { font-size:1.7rem; letter-spacing:-0.01em; }
+  p, li { color:var(--ink-2); max-width:70ch; margin-top:10px; }
+  p b { color:var(--ink); }
+  .card { background:var(--surface); border:1px solid var(--border);
+          border-radius:12px; padding:18px 20px; margin-top:16px; }
+  .card h2 { font-size:1.1rem; }
+  .card .d { font-size:0.8rem; color:var(--muted); margin-top:2px; }
+  .followbox { border-left:4px solid var(--s1); }
+  .followbox code { background:var(--page); border:1px solid var(--border);
+    border-radius:6px; padding:2px 8px; font-size:0.85rem; }
+  footer { margin-top:48px; padding-top:18px; border-top:1px solid var(--grid);
+           color:var(--muted); font-size:0.84rem; }
+  a { color:var(--s1); }
+</style>
+</head>
+<body>
+<main>
+<header class="site">
+  <div class="crumb"><a href="index.html">◂ The Null Ledger</a></div>
+  <h1>Monthly updates</h1>
+  <p>One post per month, generated from the ledgers themselves — published
+  whichever way the numbers point. No cherry-picking is possible: the post is
+  written by the same code that writes the record.</p>
+</header>
+
+<div class="card followbox">
+  <h2>Follow the results</h2>
+  <p><b>RSS feed:</b> <a href="feed.xml">feed.xml</a> — works with any feed
+  reader (Feedly, NetNewsWire) or RSS-to-email service, and updates the
+  moment a new month is published. Or just bookmark this page: new results
+  land within a few days of each month-end.</p>
+</div>
+
+<div id="entries"><p>Loading…</p></div>
+
+<footer>
+  <p>Educational research project by a student. Paper trading only — nothing
+  here is investment advice. <a href="index.html">Full record and
+  methodology</a>.</p>
+</footer>
+</main>
+
+<script>
+(async function () {
+  let D;
+  try { D = await (await fetch("data.json", {cache: "no-store"})).json(); }
+  catch (e) { document.getElementById("entries").innerHTML = "<p>Could not load data.</p>"; return; }
+  const box = document.getElementById("entries");
+  const ups = D.updates || [];
+  box.innerHTML = ups.length ? ups.map(u =>
+    `<div class="card" id="${u.ym}"><h2>${u.title}</h2>` +
+    `<div class="d">scored after the ${u.ym} month-end</div>` +
+    u.lines.map(l => `<p>${l}</p>`).join("") + `</div>`).join("")
+    : "<p>The first monthly update lands after the next month-end.</p>";
+})();
+</script>
+</body>
+</html>
