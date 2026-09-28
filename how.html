@@ -72,9 +72,14 @@
     The model is trained <b>walk-forward</b>: to make the January 2020 pick it
     trains only on data available before January 2020 — it can never peek at
     the future, and it can only pick from stocks that were actually in the
-    index on the decision date, including companies that later went bankrupt.</li>
+    index on the decision date. Since the 2026 data rebuild, its price history
+    also includes the companies that later went bankrupt or were delisted —
+    the original data lacked them, and that omission is precisely what
+    manufactured the fake +3.1%/yr alpha described on the front page.</li>
     <li><b>Select &amp; weight.</b> The top ~30 names are held, higher scores get
-    more money, capped at 10% per stock and 30% per sector.</li>
+    more money, capped at 10% per stock and at most 9 of the 30 names per
+    sector (a count cap — a fully capped sector can exceed 30% of dollars
+    when its names carry high conviction weights).</li>
     <li><b>Repeat.</b> One month later, re-rank everything. Turnover limits keep
     changes to ~7–8 stocks a month, and every trade is charged 15 basis points
     per side in simulated costs. No human decisions anywhere.</li>

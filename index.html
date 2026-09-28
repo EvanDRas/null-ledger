@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Null Ledger — a public forward test of two null-result trading models</title>
-<meta name="description" content="Two systematic equity models, pre-registered and audited to a null result. This site tracks them forward, on paper, in public — to keep testing that conclusion.">
+<meta name="description" content="Two systematic equity models, tested and audited to a null result. This site tracks them forward, on paper, in public — to keep testing that conclusion.">
 <meta property="og:title" content="The Null Ledger">
 <meta property="og:description" content="18 strategies pre-registered. 3 independent audits. 0 edges survived. A live, append-only paper record keeps testing that answer every month.">
 <meta property="og:type" content="website">
@@ -189,8 +189,9 @@
 
 <div class="banner"><b>Registered expectation: null.</b> Nothing here is a
 strategy to follow. Both models are expected <b>not</b> to beat their
-benchmarks after trading costs — that is the pre-registered, audited
-conclusion. This page exists so anyone (including the author) can watch that
+benchmarks after trading costs — that is the published, audited
+conclusion (pre-registered for Model 2; established by the complete-data
+rebuild for Model 1). This page exists so anyone (including the author) can watch that
 conclusion face new data every month. If a line runs hot for a while, that is
 what randomness looks like; the project's own published rules say years of
 forward months decide, not streaks.</div>
@@ -199,8 +200,10 @@ forward months decide, not streaks.</div>
   <h2>Model 1 — the S&amp;P 500 ranker</h2>
   <p>A monthly machine-learning system over S&amp;P 500 stocks: momentum and
   price-history features, walk-forward XGBoost (no future data in training),
-  top ~30 names, conviction-weighted, 10% position cap, 30% sector cap,
-  rebalanced monthly against real trading costs.</p>
+  top ~30 names, conviction-weighted, 10% position cap, and a sector cap of
+  at most 9 of the 30 names per sector (30% by count — conviction weighting
+  can push a fully-capped sector above 30% of dollars), rebalanced monthly
+  against real trading costs.</p>
   <p><b>What testing found:</b> on a survivorship-honest rebuild of its data —
   including the stocks that later died and left the index — the backtest's
   apparent +3.1%/yr alpha collapsed to <b>−0.4%/yr (t&nbsp;=&nbsp;−0.15)</b>:
@@ -228,8 +231,9 @@ forward months decide, not streaks.</div>
   sample (2019–2026) that could be touched <b>exactly once, ever</b>.</p>
   <p><b>What happened:</b> it was the campaign's sole build-sample survivor
   (+1.1%/yr, placebo-calibrated p&nbsp;=&nbsp;0.0135) — then the one-shot
-  confirm test rejected it on every registered prong. The chart below is the
-  actual sealed confirm window, plotted from the published artifacts.</p>
+  confirm test rejected it on every registered prong. The chart below shows
+  the sealed confirm window from the published artifacts, plus the live
+  forward months, split by the divider.</p>
   <div class="card">
     <div class="verdict" id="cl-tiles"></div>
     <div class="legend" id="cl-legend"></div>
@@ -257,16 +261,24 @@ forward months decide, not streaks.</div>
   winner. The defense is simple — <b>register everything first, then publish
   everything</b>. Below is the complete pre-registered slate and each cell's
   build-sample result under the frozen rules, including the embarrassing rows.
-  Net and gross are annualized excess vs the cell's band benchmark; <i>p</i> is
-  the placebo-calibrated rank against 2,000 cost-bearing imposters
-  (gate: ≤ 0.023).</p>
+  Cells ran in two liquidity bands: MID (dollar-volume ranks 501–1000) and
+  SMALL (ranks 1001–2000). Net and gross are annualized excess vs the cell's
+  band benchmark; <i>p</i> is the placebo-calibrated rank against 2,000
+  cost-bearing imposters. <b>The registered pass rule had two prongs: p ≤
+  0.023 AND positive net alpha</b> — the frozen kill rule said any cell whose
+  profits vanish at real costs is dead, however strong its signal.</p>
   <div class="card">
     <div class="tscroll" id="cells-table"></div>
-    <p class="fineprint">Disqualified = the cell's placebo null failed a
-    registered validity check (delisting-exposure mismatch) in the
-    anti-conservative direction, so by pre-stated rule it cannot pass —
-    its small p is exactly the false positive the check predicted. The gross
-    column is the campaign's real finding: information exists; costs eat it.</p>
+    <p class="fineprint">Why a tiny p can still die: the placebo imposters
+    trade as much as the real strategy and pay the same costs, so beating
+    nearly all of them proves real <i>information</i>, not profit — a cell can
+    outrank 99.95% of imposters while still losing money net, which is
+    exactly what the six "costs ate it" rows did. Disqualified = the cell's
+    placebo null failed a registered validity check (delisting-exposure
+    mismatch) in the anti-conservative direction, so by pre-stated rule it
+    cannot pass — its small p is exactly the false positive the check
+    predicted. The gross column is the campaign's real finding: information
+    exists; costs eat it.</p>
   </div>
 </section>
 
@@ -488,7 +500,7 @@ forward months decide, not streaks.</div>
       const anat = X.months.map(mo => {
         const f = x => `${x.t} ${x.pp >= 0 ? "+" : ""}${x.pp}pp`;
         const conc = mo.top1_share != null
-          ? ` · top name = ${(100 * mo.top1_share).toFixed(0)}% of the month` : "";
+          ? ` · top name = ${(100 * mo.top1_share).toFixed(0)}% of the month's gross return` : "";
         return `<tr><td>${mo.ym}</td><td class="${cls(mo.excess)}">` +
           `${fmtPct(mo.excess, 1)}</td>` +
           `<td style="text-align:left">${mo.top.map(f).join(", ")}</td>` +
@@ -501,7 +513,8 @@ forward months decide, not streaks.</div>
         <div class="tscroll"><table class="cells" style="margin-top:8px">
         <thead><tr><th>month</th><th>excess</th>
         <th style="text-align:left">made by</th>
-        <th style="text-align:left">hurt by</th></tr></thead>
+        <th style="text-align:left">hurt by (that month's book — may differ
+        from current positioning)</th></tr></thead>
         <tbody>${anat}</tbody></table></div>
         <p class="fineprint">${L ? `Luck yardstick: this cumulative excess beats
         <b>${L.percentile}%</b> of ${L.K.toLocaleString()} random
@@ -538,7 +551,8 @@ forward months decide, not streaks.</div>
         d:`${r.n_months} sealed months · 95% CI ${fmtPct(r.ci95_ann[0],1)} to ${fmtPct(r.ci95_ann[1],1)}` },
       { k:"confirm p", v:r.empirical_p.toFixed(4), c:"neg",
         d:`gate ≤ ${r.p_gate} · ${r.n_draws.toLocaleString()} placebos (escalated from ${r.p_at_2000.toFixed(4)} at 2,000)` },
-      { k:"haircut alpha", v:fmtPct(r.haircut_alpha_ann,1)+"/yr", c:cls(r.haircut_alpha_ann), d:"had to be > 0" },
+      { k:"haircut alpha", v:fmtPct(r.haircut_alpha_ann,1)+"/yr", c:cls(r.haircut_alpha_ann),
+        d:"stress rerun at deliberately worse costs — had to be > 0" },
       { k:"verdict", v: r.accepted ? "ACCEPTED" : "REJECTED", c: r.accepted ? "pos":"neg", d:"final — no retry, ever" },
     ]);
     document.getElementById("cl-legend").innerHTML =
@@ -553,7 +567,7 @@ forward months decide, not streaks.</div>
     document.getElementById("cl-note").textContent =
       c.forward_months.length === 0
         ? "Growth of $1, net of 40–75bps/side costs. Solid history = the sealed 2019–2026 confirm window, plotted from the published artifacts. The forward runner is live — its current holdings are in the positioning section below, and the first scored forward month lands after the next month-end."
-        : "Growth of $1, net of costs. Left of the divider: the sealed confirm window. Right: forward paper months, appended monthly, append-only.";
+        : "Growth of $1, net of costs, months labeled by when the return was earned (same convention as Model 1). Left of the divider: the sealed confirm window. Right: forward paper months, appended monthly, append-only. Any month missing between the two is a real gap — the runner came online mid-August 2026 and the record never backfills.";
     table(document.getElementById("cl-table"),
       ["month","clone net","band avg","S&P 500","excess vs band"],
       allM.map(x => [x.ym, fmtPct(x.net), fmtPct(x.bench),
@@ -566,9 +580,15 @@ forward months decide, not streaks.</div>
           not yet live — holdings appear after its first locked formation.</p>`;
         return;
       }
-      const rows = p.holdings.map(h =>
+      const live = p.holdings.filter(h => h.w > 0.0005);
+      const zeroed = p.holdings.filter(h => h.w <= 0.0005).map(h => h.t);
+      const rows = live.map(h =>
         `<tr><td>${h.t}</td><td>${h.sector || ""}</td>` +
         `<td>${(100 * h.w).toFixed(1)}%</td></tr>`).join("");
+      const zeroNote = zeroed.length ? `<p class="fineprint">${zeroed.join(", ")}
+        went to 0% under the forward runner's delisting convention (a stopped
+        price series contributes 0% from then on) — kept off the table,
+        disclosed here.</p>` : "";
       const chips = list => list.length
         ? list.map(t => `<span class="chip-t">${t}</span>`).join("")
         : "<span class='fineprint'>none</span>";
@@ -579,18 +599,22 @@ forward months decide, not streaks.</div>
            <b>Sold:</b> ${chips(p.sells)}</div>`;
       el.innerHTML = `<h3>${title}</h3>
         <p class="fineprint">Formation ${p.formation} ·
-        ${p.holdings.length} positions${p.late_lock ?
+        ${live.length} positions${p.late_lock ?
         " · <b>flag:</b> this formation was locked late (runner came online " +
         "mid-month) — disclosed, deterministic from frozen rules" : ""}</p>
         <div class="postable"><table><thead><tr><th>ticker</th><th>sector</th>
         <th>weight</th></tr></thead><tbody>${rows}</tbody></table></div>
-        ${trade}${extraNote || ""}`;
+        ${zeroNote}${trade}${extraNote || ""}`;
     }
     const P = D.positioning || {};   // absent on stale-cached data: degrade, don't die
     posCard(document.getElementById("pos-m1"),
       "Model 1 — S&P 500 ranker", P.m1,
       `<p class="fineprint">Executed orders, fills, and fees:
-       <a href="paper/account.html">paper account</a>.</p>`);
+       <a href="paper/account.html">paper account</a>. "Unknown" sector =
+       a recent index addition not yet in the model's frozen sector map —
+       such names are capped as their own group rather than under their true
+       sector (the map is refreshed with the annual membership update;
+       mid-experiment the frozen map stands, disclosed here).</p>`);
     posCard(document.getElementById("pos-m2"),
       "Model 2 — SMALL/clone (forward)", P.m2,
       P.m2 ? `<p class="fineprint">Forward implementation is
