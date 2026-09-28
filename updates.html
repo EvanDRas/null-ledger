@@ -7,6 +7,11 @@
 <meta name="description" content="One post per month, written from the ledgers themselves: both models' results, whichever way they point.">
 <link rel="alternate" type="application/rss+xml" title="The Null Ledger — monthly results" href="feed.xml">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231a1a19'/%3E%3Ctext x='32' y='46' font-size='40' text-anchor='middle' fill='%233987e5' font-family='system-ui'%3E%E2%88%85%3C/text%3E%3C/svg%3E">
+<meta property="og:image" content="https://evandras.github.io/null-ledger/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     color-scheme: light;
@@ -27,7 +32,10 @@
   }
   * { box-sizing:border-box; margin:0; }
   body { background:var(--page); color:var(--ink);
-         font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif; padding:0 16px 64px; }
+         font:16px/1.6 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+         padding:0 16px 64px; }
+  h1, h2 { letter-spacing:-0.015em; }
+  .card .d { font-family:"IBM Plex Mono",monospace; }
   main { max-width:760px; margin:0 auto; }
   header.site { padding:40px 0 6px; }
   .crumb { font-size:0.85rem; color:var(--muted); margin-bottom:10px; }

@@ -10,6 +10,12 @@
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231a1a19'/%3E%3Ctext x='32' y='46' font-size='40' text-anchor='middle' fill='%233987e5' font-family='system-ui'%3E%E2%88%85%3C/text%3E%3C/svg%3E">
 <link rel="alternate" type="application/rss+xml" title="The Null Ledger — monthly results" href="feed.xml">
+<meta property="og:image" content="https://evandras.github.io/null-ledger/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://evandras.github.io/null-ledger/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     color-scheme: light;
@@ -40,9 +46,20 @@
   * { box-sizing:border-box; margin:0; }
   body {
     background:var(--page); color:var(--ink);
-    font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
+    font:16px/1.6 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
     padding:0 16px 64px;
   }
+  .brandline { font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--muted); font-weight:600; margin-bottom:10px; }
+  .brandline .mark { color:var(--s1); font-size:1rem; margin-right:6px; }
+  .herostats { display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; }
+  .herostats span { font:500 0.8rem/1 "IBM Plex Mono",monospace; color:var(--ink-2);
+    border:1px solid var(--border); border-radius:999px; padding:7px 12px;
+    background:var(--surface); }
+  .herostats b { color:var(--s1); font-weight:600; }
+  .tile .v, td, th, .chip-t { font-family:"IBM Plex Mono",monospace; }
+  .tile .v { font-weight:600; letter-spacing:-0.02em; }
+  h1, h2, h3 { letter-spacing:-0.015em; }
   main { max-width:880px; margin:0 auto; }
   header.site { padding:48px 0 8px; }
   h1 { font-size:1.9rem; line-height:1.2; letter-spacing:-0.01em; }
@@ -60,7 +77,8 @@
   p b, li b { color:var(--ink); }
   .card {
     background:var(--surface); border:1px solid var(--border);
-    border-radius:12px; padding:20px; margin-top:16px;
+    border-radius:14px; padding:22px; margin-top:16px;
+    box-shadow:0 1px 3px rgba(11,11,11,0.04);
   }
   .verdict { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
   .tile {
@@ -136,11 +154,19 @@
 <main>
 <header class="site" style="position:relative">
   <button class="themebtn" id="themebtn" aria-label="toggle theme">◐ theme</button>
+  <div class="brandline"><span class="mark">∅</span>The Null Ledger — a public research record</div>
   <h1>The Null Ledger</h1>
   <p class="sub">Two systematic stock-picking models, built and then tested to
   destruction with a pre-registered, independently audited process. The
   published answer for both: <b>no real edge after costs</b>. This site keeps
   testing that answer — forward, on paper, in public.</p>
+  <div class="herostats">
+    <span><b>18</b> strategies pre-registered</span>
+    <span><b>2,000</b> placebos per test</span>
+    <span><b>3</b> independent audits</span>
+    <span><b>0</b> edges survived</span>
+    <span><b>live</b> since 2026-07</span>
+  </div>
 </header>
 
 <nav class="nav">
