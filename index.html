@@ -46,20 +46,22 @@
   * { box-sizing:border-box; margin:0; }
   body {
     background:var(--page); color:var(--ink);
-    font:16px/1.6 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font:17px/1.62 Georgia,"Times New Roman",serif;
     padding:0 16px 64px;
   }
-  .brandline { font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase;
-    color:var(--muted); font-weight:600; margin-bottom:10px; }
-  .brandline .mark { color:var(--s1); font-size:1rem; margin-right:6px; }
-  .herostats { display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; }
-  .herostats span { font:500 0.8rem/1 "IBM Plex Mono",monospace; color:var(--ink-2);
-    border:1px solid var(--border); border-radius:999px; padding:7px 12px;
-    background:var(--surface); }
+  .brandline { font:600 0.75rem/1 "IBM Plex Mono",monospace;
+    letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:10px; }
+  .brandline .mark { color:var(--s1); font-size:0.95rem; margin-right:6px; }
+  .byline { font-size:0.92rem; color:var(--muted); margin-top:10px;
+    font-style:italic; }
+  .herostats { font:500 0.82rem/1.8 "IBM Plex Mono",monospace;
+    color:var(--ink-2); margin-top:14px; }
   .herostats b { color:var(--s1); font-weight:600; }
   .tile .v, td, th, .chip-t { font-family:"IBM Plex Mono",monospace; }
   .tile .v { font-weight:600; letter-spacing:-0.02em; }
-  h1, h2, h3 { letter-spacing:-0.015em; }
+  .tile .k, .tile .d, .fineprint, .chips, .legend, .chartnote
+    { font-family:"IBM Plex Sans",system-ui,sans-serif; }
   main { max-width:880px; margin:0 auto; }
   header.site { padding:48px 0 8px; }
   h1 { font-size:1.9rem; line-height:1.2; letter-spacing:-0.01em; }
@@ -70,10 +72,8 @@
     color:var(--ink-2); font-size:0.95rem;
   }
   .banner b { color:var(--ink); }
-  section { margin-top:52px; }
+  section { margin-top:50px; border-top:1px solid var(--grid); padding-top:26px; }
   h2 { font-size:1.35rem; margin-bottom:6px; }
-  section > h2::before { content:""; display:block; width:36px; height:3px;
-    background:var(--s1); border-radius:2px; margin-bottom:12px; }
   a:focus-visible, button:focus-visible, summary:focus-visible {
     outline:2px solid var(--s1); outline-offset:2px; border-radius:4px; }
   .postable thead th, .tscroll thead th { position:sticky; top:0;
@@ -87,8 +87,7 @@
   p b, li b { color:var(--ink); }
   .card {
     background:var(--surface); border:1px solid var(--border);
-    border-radius:14px; padding:22px; margin-top:16px;
-    box-shadow:0 1px 3px rgba(11,11,11,0.04);
+    border-radius:6px; padding:20px; margin-top:16px;
   }
   .verdict { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
   .tile {
@@ -131,12 +130,10 @@
     border:1px solid var(--border); border-radius:8px; padding:5px 11px; cursor:pointer; font-size:0.82rem;
   }
   .fineprint { font-size:0.8rem; color:var(--muted); margin-top:8px; }
-  .nav { display:flex; gap:8px; flex-wrap:wrap; margin-top:18px; }
-  .nav a {
-    background:var(--surface); border:1px solid var(--border); border-radius:8px;
-    padding:7px 13px; font-size:0.88rem; text-decoration:none; color:var(--ink-2);
-  }
-  .nav a:hover { border-color:var(--s1); color:var(--s1); }
+  .nav { margin-top:16px; font:0.85rem "IBM Plex Mono",monospace; }
+  .nav a { color:var(--ink-2); text-decoration:none; margin-right:4px; }
+  .nav a:hover { color:var(--s1); text-decoration:underline; }
+  .nav a:not(:last-child)::after { content:" /"; color:var(--grid); }
   .tscroll { overflow-x:auto; }
   .cells td:first-child, .cells th:first-child { white-space:nowrap; }
   .cells td:nth-child(2), .cells th:nth-child(2),
@@ -164,19 +161,18 @@
 <main>
 <header class="site" style="position:relative">
   <button class="themebtn" id="themebtn" aria-label="toggle theme">◐ theme</button>
-  <div class="brandline"><span class="mark">∅</span>The Null Ledger — a public research record</div>
+  <div class="brandline"><span class="mark">∅</span>The Null Ledger</div>
   <h1>The Null Ledger</h1>
-  <p class="sub">Two systematic stock-picking models, built and then tested to
-  destruction with a pre-registered, independently audited process. The
-  published answer for both: <b>no real edge after costs</b>. This site keeps
-  testing that answer — forward, on paper, in public.</p>
-  <div class="herostats">
-    <span><b>18</b> strategies pre-registered</span>
-    <span><b>2,000</b> placebos per test</span>
-    <span><b>3</b> independent audits</span>
-    <span><b>0</b> edges survived</span>
-    <span><b>live</b> since 2026-07</span>
-  </div>
+  <p class="sub">I built two stock-picking models, then tested them as hard
+  as I knew how: rules frozen in advance, dead companies included, real
+  trading costs, outside audits. The answer for both was
+  <b>no real edge after costs</b>. I run them on paper anyway, and this page
+  publishes the results every month, whichever way they go.</p>
+  <p class="byline">Evan Rasmussen · Lincoln, Nebraska · the numbers here are
+  regenerated by scripts on my PC after each month ends</p>
+  <p class="herostats"><b>18</b> strategies pre-registered ·
+    <b>2,000</b> placebos per test · <b>3</b> independent audits ·
+    <b>0</b> edges survived · live since July 2026</p>
 </header>
 
 <nav class="nav">
@@ -187,27 +183,27 @@
   <a href="research_overview.html">Research deep-dive</a>
 </nav>
 
-<div class="banner"><b>Registered expectation: null.</b> Nothing here is a
-strategy to follow. Both models are expected <b>not</b> to beat their
-benchmarks after trading costs — that is the published, audited
-conclusion (pre-registered for Model 2; established by the complete-data
-rebuild for Model 1). This page exists so anyone (including the author) can watch that
-conclusion face new data every month. If a line runs hot for a while, that is
-what randomness looks like; the project's own published rules say years of
-forward months decide, not streaks.</div>
+<div class="banner"><b>What to expect: nothing.</b> Neither model is supposed
+to beat its benchmark after trading costs. That's my own published, audited
+conclusion (pre-registered for Model 2, and forced on me by the complete-data
+rebuild for Model 1). This page exists so anyone, me included, can watch that
+conclusion face new data every month. When a line runs hot for a while, that
+is what randomness looks like. My own rules say years of forward months
+decide, not streaks — so nothing here is a strategy to follow.</div>
 
 <section id="model1">
   <h2>Model 1 — the S&amp;P 500 ranker</h2>
-  <p>A monthly machine-learning system over S&amp;P 500 stocks: momentum and
+  <p>My original system, a monthly machine-learning ranker over S&amp;P 500
+  stocks: momentum and
   price-history features, walk-forward XGBoost (no future data in training),
   top ~30 names, conviction-weighted, 10% position cap, and a sector cap of
   at most 9 of the 30 names per sector (30% by count — conviction weighting
   can push a fully-capped sector above 30% of dollars), rebalanced monthly
   against real trading costs.</p>
-  <p><b>What testing found:</b> on a survivorship-honest rebuild of its data —
-  including the stocks that later died and left the index — the backtest's
-  apparent +3.1%/yr alpha collapsed to <b>−0.4%/yr (t&nbsp;=&nbsp;−0.15)</b>:
-  statistically nothing. The exciting version of this model was an illusion
+  <p><b>What testing found:</b> when I rebuilt its price data honestly, so it
+  included the stocks that later died and left the index, the backtest's
+  apparent +3.1%/yr alpha collapsed to <b>−0.4%/yr (t&nbsp;=&nbsp;−0.15)</b>.
+  Statistically nothing. The exciting version of my model was an illusion
   created by testing on today's surviving stocks. It paper-trades on anyway,
   because a published null deserves a live test too.</p>
   <div class="card">
@@ -223,9 +219,9 @@ forward months decide, not streaks.</div>
 
 <section id="model2">
   <h2>Model 2 — the same machine, aimed at small-caps (“SMALL/clone”)</h2>
-  <p>The identical production machinery cloned — zero re-tuning — into the
-  small-cap band (dollar-volume ranks 1001–2000), where market folklore says
-  edges hide. It was one of 18 pre-registered strategies tested in a gated
+  <p>I cloned the identical machinery, zero re-tuning, into the small-cap
+  band (dollar-volume ranks 1001–2000), where market folklore says the edges
+  hide. It was one of 18 strategies I pre-registered and tested in a gated
   campaign: hypotheses frozen before any result existed, a build sample
   (2009–2018) gated by 2,000 cost-bearing placebo portfolios, and a confirm
   sample (2019–2026) that could be touched <b>exactly once, ever</b>.</p>
@@ -258,7 +254,7 @@ forward months decide, not streaks.</div>
 <section id="cells">
   <h2>Every registered strategy, disclosed</h2>
   <p>Selective reporting is how backtests lie: run twenty ideas, publish the
-  winner. The defense is simple — <b>register everything first, then publish
+  winner. My defense was simple: <b>register everything first, then publish
   everything</b>. Below is the complete pre-registered slate and each cell's
   build-sample result under the frozen rules, including the embarrassing rows.
   Cells ran in two liquidity bands: MID (dollar-volume ranks 501–1000) and
@@ -284,14 +280,15 @@ forward months decide, not streaks.</div>
 
 <section id="process">
   <h2>Why these nulls can be trusted</h2>
-  <p>Anyone can publish a backtest. The value here is the process: every
-  hypothesis, threshold, and consequence was written down and hash-frozen
-  <b>before</b> results existed; every deviation went through a signed,
-  dated amendment protocol; three independent audit sessions reproduced every
-  binding number bit-for-bit from pinned artifacts; and the final test ran
+  <p>Anyone can publish a backtest. What I'm actually proud of is the
+  process: every hypothesis, threshold, and consequence was written down and
+  hash-frozen <b>before</b> results existed. Every deviation went through a
+  signed, dated amendment protocol. Three independent audits reproduced every
+  binding number bit-for-bit from pinned artifacts, and the final test ran
   once, under seal, with the null distribution locked before the answer was
-  revealed. The full record — pre-registration, 42 amendments, 16 verbatim
-  sign-offs, audit reports, hash manifests — is preserved.</p>
+  revealed. The full record is preserved: the pre-registration, 42
+  amendments, 16 verbatim sign-offs, the audit reports, the hash
+  manifests.</p>
   <div class="statsrow">
     <div class="tile"><div class="v">18</div><div class="d">strategies pre-registered</div></div>
     <div class="tile"><div class="v">3</div><div class="d">independent audits</div></div>
@@ -308,10 +305,14 @@ forward months decide, not streaks.</div>
 </section>
 
 <footer>
-  <p>Educational research project by a student. Paper trading only — no real
-  money is or was traded, and nothing here is investment advice. Ledgers are
-  append-only; locked monthly snapshots prove picks predate returns; missed
-  months appear as gaps, never backfills. <span id="built"></span></p>
+  <p>I'm Evan Rasmussen, a student in Lincoln, Nebraska. This is paper
+  trading only: no real money is or was traded, and nothing here is
+  investment advice. The models, pipeline, and this page are my project,
+  built in Python with heavy use of AI coding tools — which is exactly why
+  every number is machine-generated from data and code rather than written
+  by anyone, human or otherwise. Ledgers are append-only; locked monthly
+  snapshots prove picks predate returns; missed months appear as gaps,
+  never backfills. <span id="built"></span></p>
   <p style="margin-top:14px">
     <a href="updates.html">Monthly updates</a> ·
     <a href="how.html">How it all works</a> ·
