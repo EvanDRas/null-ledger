@@ -206,12 +206,12 @@ decide, not streaks — so nothing here is a strategy to follow.</div>
   at most 9 of the 30 names per sector (30% by count — conviction weighting
   can push a fully-capped sector above 30% of dollars), rebalanced monthly
   against real trading costs.</p>
-  <p><b>What testing found:</b> when I rebuilt its price data honestly, so it
-  included the stocks that later died and left the index, the backtest's
-  apparent +3.1%/yr alpha collapsed to <b>−0.4%/yr (t&nbsp;=&nbsp;−0.15)</b>.
-  Statistically nothing. The exciting version of my model was an illusion
-  created by testing on today's surviving stocks. It paper-trades on anyway,
-  because a published null deserves a live test too.</p>
+  <p>When I rebuilt its price data honestly, so it included the stocks that
+  later died and left the index, the backtest's apparent +3.1%/yr alpha
+  collapsed to <b>−0.4%/yr (t&nbsp;=&nbsp;−0.15)</b>. Statistically nothing.
+  The exciting version of my model was an illusion created by testing on
+  today's surviving stocks. It paper-trades on anyway, because a published
+  null deserves a live test too.</p>
   <div class="card">
     <div class="verdict" id="sp-tiles"></div>
     <div id="sp-chartblock"></div>
@@ -231,11 +231,10 @@ decide, not streaks — so nothing here is a strategy to follow.</div>
   campaign: hypotheses frozen before any result existed, a build sample
   (2009–2018) gated by 2,000 cost-bearing placebo portfolios, and a confirm
   sample (2019–2026) that could be touched <b>exactly once, ever</b>.</p>
-  <p><b>What happened:</b> it was the campaign's sole build-sample survivor
-  (+1.1%/yr, placebo-calibrated p&nbsp;=&nbsp;0.0135) — then the one-shot
-  confirm test rejected it on every registered prong. The chart below shows
-  the sealed confirm window from the published artifacts, plus the live
-  forward months, split by the divider.</p>
+  <p>It was the campaign's sole build-sample survivor (+1.1%/yr,
+  placebo-calibrated p&nbsp;=&nbsp;0.0135). Then the one-shot confirm test
+  rejected it on every registered prong. The chart shows the sealed confirm
+  window plus the live forward months, split by the divider.</p>
   <div class="card">
     <div class="verdict" id="cl-tiles"></div>
     <div class="legend" id="cl-legend"></div>
@@ -308,8 +307,8 @@ decide, not streaks — so nothing here is a strategy to follow.</div>
   The information is real; the profit is not. That is the oldest result in
   the anomalies literature, reproduced independently on delisting-honest
   data.</p>
-  <p>For the curious, this is what a monthly run actually looks like from my
-  side. Real output from the September publish:</p>
+  <p>This is what a monthly run looks like from my side. Real output from
+  the September publish:</p>
   <pre class="term">PUBLISH RUN Sun 09/27/2026 16:09:01
 [clone_forward] archive rows 8,445,969 for 4174 tickers
 [clone_forward] spliced 2140 tickers (17 without seam overlap)
@@ -560,11 +559,10 @@ wrote site/data.json  sha256=b78b30c09d09236d</pre>
         <p class="fineprint">${L ? `Luck yardstick: this cumulative excess beats
         <b>${L.percentile}%</b> of ${L.K.toLocaleString()} random
         ${L.n_stocks}-stock portfolios (${L.note}; seed ${L.seed}, recomputed
-        every build). Read it carefully: a high percentile means this run is
-        unusual versus <i>naive</i> luck — it cannot distinguish skill from
-        riding a hot factor (this book is momentum-tilted and momentum is on
-        a tear) or from one moonshot stock, and the anatomy column shows both
-        at work. Only persistence across many rows separates them. ` : ""}Cumulative trading-cost
+        every build). A high percentile means unusual versus naive luck.
+        It can't tell skill apart from a hot factor tilt or one moonshot
+        stock; the anatomy column shows both at work here. Only years of
+        rows separate them. ` : ""}Cumulative trading-cost
         drag paid so far: ${fmtPct(X.cost_drag_cum, 2)}. This panel exists to
         keep hot streaks honest, not to celebrate them.</p>`;
       tiles(document.getElementById("sp-ev-tiles"), [
@@ -650,12 +648,10 @@ wrote site/data.json  sha256=b78b30c09d09236d</pre>
     const P = D.positioning || {};   // absent on stale-cached data: degrade, don't die
     posCard(document.getElementById("pos-m1"),
       "Model 1: S&P 500 ranker", P.m1,
-      `<p class="fineprint">Executed orders, fills, and fees:
+      `<p class="fineprint">Orders, fills, and fees:
        <a href="paper/account.html">paper account</a>. "Unknown" sector =
-       a recent index addition not yet in the model's frozen sector map —
-       such names are capped as their own group rather than under their true
-       sector (the map is refreshed with the annual membership update;
-       mid-experiment the frozen map stands, disclosed here).</p>`);
+       an index newcomer not yet in the model's frozen sector map; those get
+       capped as their own group until the map's annual refresh.</p>`);
     posCard(document.getElementById("pos-m2"),
       "Model 2: SMALL/clone (forward)", P.m2,
       P.m2 ? `<p class="fineprint">Forward implementation is
