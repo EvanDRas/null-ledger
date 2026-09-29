@@ -121,6 +121,13 @@
   th:first-child, td:first-child { text-align:left; }
   .statsrow { display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
   .statsrow .tile { flex:1 1 110px; text-align:center; }
+  .term { background:#141413; color:#c6c5ba; font:0.78rem/1.55 "IBM Plex Mono",monospace;
+    border-radius:6px; padding:14px 16px; overflow-x:auto; margin-top:12px;
+    border:1px solid rgba(255,255,255,0.07); }
+  .notes { list-style:none; padding:0; margin-top:8px; }
+  .notes li { margin:12px 0; color:var(--ink-2); max-width:72ch; }
+  .notes b { font-family:"IBM Plex Mono",monospace; font-size:0.85rem;
+    color:var(--ink); margin-right:6px; }
   footer { margin-top:56px; padding-top:20px; border-top:1px solid var(--grid);
            color:var(--muted); font-size:0.84rem; }
   footer p { color:var(--muted); }
@@ -160,9 +167,8 @@
 <body>
 <main>
 <header class="site" style="position:relative">
-  <button class="themebtn" id="themebtn" aria-label="toggle theme">◐ theme</button>
-  <div class="brandline"><span class="mark">∅</span>The Null Ledger</div>
-  <h1>The Null Ledger</h1>
+  <button class="themebtn" id="themebtn" aria-label="toggle theme">dark/light</button>
+  <h1><span style="color:var(--s1)">∅</span> The Null Ledger</h1>
   <p class="sub">I built two stock-picking models, then tested them as hard
   as I knew how: rules frozen in advance, dead companies included, real
   trading costs, outside audits. The answer for both was
@@ -192,7 +198,7 @@ is what randomness looks like. My own rules say years of forward months
 decide, not streaks — so nothing here is a strategy to follow.</div>
 
 <section id="model1">
-  <h2>Model 1 — the S&amp;P 500 ranker</h2>
+  <h2>Model 1: the S&amp;P 500 ranker</h2>
   <p>My original system, a monthly machine-learning ranker over S&amp;P 500
   stocks: momentum and
   price-history features, walk-forward XGBoost (no future data in training),
@@ -218,7 +224,7 @@ decide, not streaks — so nothing here is a strategy to follow.</div>
 </section>
 
 <section id="model2">
-  <h2>Model 2 — the same machine, aimed at small-caps (“SMALL/clone”)</h2>
+  <h2>Model 2: the same machine, aimed at small-caps (“SMALL/clone”)</h2>
   <p>I cloned the identical machinery, zero re-tuning, into the small-cap
   band (dollar-volume ranks 1001–2000), where market folklore says the edges
   hide. It was one of 18 strategies I pre-registered and tested in a gated
@@ -240,7 +246,7 @@ decide, not streaks — so nothing here is a strategy to follow.</div>
 </section>
 
 <section id="positioning">
-  <h2>Current positioning — what the models actually hold</h2>
+  <h2>Current positioning</h2>
   <p>Both models' holdings come from <b>locked monthly snapshots</b> — files
   written the moment picks are made and never edited, so the positions
   provably predate their returns. Buys and sells are the month-over-month
@@ -302,6 +308,40 @@ decide, not streaks — so nothing here is a strategy to follow.</div>
   The information is real; the profit is not. That is the oldest result in
   the anomalies literature, reproduced independently on delisting-honest
   data.</p>
+  <p>For the curious, this is what a monthly run actually looks like from my
+  side. Real output from the September publish:</p>
+  <pre class="term">PUBLISH RUN Sun 09/27/2026 16:09:01
+[clone_forward] archive rows 8,445,969 for 4174 tickers
+[clone_forward] spliced 2140 tickers (17 without seam overlap)
+[clone_forward] forward membership 2026-08: 1000 names (eligible 3350)
+[clone_forward] SCORED 2026-07: net -4.49% bench +2.61% spy +2.68% (chain a3a5091ea8785e65)
+[clone_forward] DONE -- now run build_site_data.py and push the site
+  cells: {'survivor': 1, 'dead-costs': 6, 'no-pass': 7, 'disqualified': 4}
+wrote site/data.json  sha256=b78b30c09d09236d</pre>
+</section>
+
+<section id="notes">
+  <h2>Site notes</h2>
+  <p>A running log of what's happened here, newest first. I keep the
+  embarrassing ones because they're the point.</p>
+  <ul class="notes">
+    <li><b>Sep 28</b> Rewrote most of this page in my own voice and pulled
+    out the startup-looking styling.</li>
+    <li><b>Sep 27</b> Ran an adversarial audit on my own site. It caught me
+    describing the sector cap wrong (it limits the <i>number</i> of names per
+    sector, not the dollars), and the two models labeling months on
+    different conventions. Same day I found a dividend-adjustment bug that
+    was flattering my August excess by about 0.25%. Fixed it against my own
+    favor.</li>
+    <li><b>Sep 1</b> Second ledger row. August looks incredible until you
+    notice one stock (MRNA, +156% that month) was most of it. That's what
+    the evidence panel is for.</li>
+    <li><b>Aug 22</b> Discovered Yahoo had quietly stopped updating my price
+    cache back in June. July's ledger row was garbage — literally just
+    trading costs charged on zero data — until I fixed the pipe. What tipped
+    me off: two of my own pages disagreed with each other.</li>
+    <li><b>Aug 3</b> Site went live.</li>
+  </ul>
 </section>
 
 <footer>
@@ -509,8 +549,7 @@ decide, not streaks — so nothing here is a strategy to follow.</div>
           `<td style="text-align:left">${mo.bottom.map(f).join(", ")}${conc}</td></tr>`;
       }).join("");
       const L = X.luck;
-      ev.innerHTML = `<h3 style="margin-top:22px">Evidence panel —
-        how much does this record actually prove?</h3>
+      ev.innerHTML = `<h3 style="margin-top:22px">Evidence panel</h3>
         <div class="verdict" id="sp-ev-tiles"></div>
         <div class="tscroll"><table class="cells" style="margin-top:8px">
         <thead><tr><th>month</th><th>excess</th>
@@ -610,7 +649,7 @@ decide, not streaks — so nothing here is a strategy to follow.</div>
     }
     const P = D.positioning || {};   // absent on stale-cached data: degrade, don't die
     posCard(document.getElementById("pos-m1"),
-      "Model 1 — S&P 500 ranker", P.m1,
+      "Model 1: S&P 500 ranker", P.m1,
       `<p class="fineprint">Executed orders, fills, and fees:
        <a href="paper/account.html">paper account</a>. "Unknown" sector =
        a recent index addition not yet in the model's frozen sector map —
@@ -618,7 +657,7 @@ decide, not streaks — so nothing here is a strategy to follow.</div>
        sector (the map is refreshed with the annual membership update;
        mid-experiment the frozen map stands, disclosed here).</p>`);
     posCard(document.getElementById("pos-m2"),
-      "Model 2 — SMALL/clone (forward)", P.m2,
+      "Model 2: SMALL/clone (forward)", P.m2,
       P.m2 ? `<p class="fineprint">Forward implementation is
        approximate vs the audited campaign: free-data price splice, universe
        frozen to the July-2026 eligible list (no new listings), simplified
